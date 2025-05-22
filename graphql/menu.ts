@@ -74,7 +74,7 @@ export async function getMenuByName(
         
         // Process the path to remove /wordpress prefix
         if (cleanItem.path) {
-            console.log(cleanItem)
+            // console.log(cleanItem)
           // First handle home page
           if (cleanItem.path === '/wordpress/home/' || cleanItem.path === '/wordpress') {
             cleanItem.path = '/';

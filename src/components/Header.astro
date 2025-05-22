@@ -3,7 +3,6 @@ import { getMenuByName } from '../../graphql/menu';
 import {WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK} from "astro:env/server"
 import Image from 'astro/components/Image.astro';
 import Logo from "../assets/logo.jpg"
-
 // Fetch menu items with authentication
 const menuItems = await getMenuByName(
   GRAPH_QL_LINK,
