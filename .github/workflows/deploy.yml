@@ -5,7 +5,7 @@ on:
     paths-ignore:
     - '.github/**' # Ignore changes towards the .github directory
     branches:
-    - development # Only trigger on the development branch
+    - master # Only trigger on the development branch
 
 jobs:
   build:
