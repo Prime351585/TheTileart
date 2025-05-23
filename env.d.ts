@@ -19,3 +19,32 @@ interface MenuResponse {
     };
   };
 }
+
+export interface Category {
+  id: string;
+  name?: string;
+  slug?: string;
+}
+
+export interface FeaturedImage {
+  node: {
+    altText: string;
+    filePath?: string;
+    sourceUrl?: string;
+  };
+}
+
+export interface Post {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  content: string;
+  excerpt?: string;
+  featuredImage?: FeaturedImage;
+  categories?: {
+    edges: Array<{
+      node: Category;
+    }>;
+  };
+}
