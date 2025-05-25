@@ -1,0 +1,636 @@
+---
+// filepath: c:\Users\HARSH\OneDrive\Desktop\gullible-group\src\pages\products\[...slug].astro
+import Layout from '../../layouts/Layout.astro';
+import { getAllProducts, getProductBySlug } from '../../../graphql/products';
+import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
+
+// This function is required for dynamic routes in static mode
+export async function getStaticPaths() {
+  try {
+    // First, get all product slugs (lightweight - just basic info)
+    const basicProducts = await getAllProducts(GRAPH_QL_LINK, WP_USERNAME, WP_APP_PASSWORD);
+    
+    // Then fetch detailed data for each product using getProductBySlug
+    const detailedProductsPromises = basicProducts.map(async (basicProduct) => {
+      try {
+        const fullProduct = await getProductBySlug(GRAPH_QL_LINK, basicProduct.slug, WP_USERNAME, WP_APP_PASSWORD);
+        return fullProduct;
+      } catch (error) {
+        console.error(`Error fetching product details for slug: ${basicProduct.slug}`, error);
+        return null;
+      }
+    });
+    
+    // Wait for all products to be fetched
+    const detailedProducts = await Promise.all(detailedProductsPromises);
+    
+    // Filter out any null results (failed fetches)
+    const validProducts = detailedProducts.filter(product => product !== null);
+    
+    // console.log(`Successfully fetched ${validProducts.length} out of ${basicProducts.length} products`);
+    
+    // Return array of paths with params and props
+    return validProducts.map(product => ({
+      params: { 
+        slug: product.slug 
+      },
+      props: { 
+        product,
+        // Pre-fetch related products for each page (exclude current product)
+        relatedProducts: validProducts.filter(p => p.id !== product.id).slice(0, 4)
+      }
+    }));
+  } catch (error) {
+    console.error('Error generating static paths for products:', error);
+    return [];
+  }
+}
+
+// Get the props passed from getStaticPaths
+const { product, relatedProducts } = Astro.props;
+const { slug } = Astro.params;
+
+// If no product is found (shouldn't happen with proper getStaticPaths), redirect to 404
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+// Get categories - handle both edges and nodes structure
+const categories = product.productCategories?.edges?.map(edge => edge.node) || 
+                   product.productCategories?.nodes || [];
+
+// Generate meta description from product description
+let metaDescription = '';
+if (product.seo?.description) {
+  metaDescription = product.seo.description;
+} else if (product.seo?.openGraph?.description) {
+  metaDescription = product.seo.openGraph.description;
+} else if (product.shortDescription) {
+  // Strip HTML and limit to ~160 characters
+  metaDescription = product.shortDescription
+    .replace(/<\/?[^>]+(>|$)/g, "") // Remove HTML tags
+    .substring(0, 157).trim();
+  
+  if (metaDescription.length >= 157) {
+    metaDescription += "...";
+  }
+} else if (product.description) {
+  // Fallback to main description
+  metaDescription = product.description
+    .replace(/<\/?[^>]+(>|$)/g, "") // Remove HTML tags
+    .substring(0, 157).trim();
+  
+  if (metaDescription.length >= 157) {
+    metaDescription += "...";
+  }
+}
+
+// Function to strip HTML tags from text
+function stripHtml(html: string) {
+  return html.replace(/<\/?[^>]+(>|$)/g, "");
+}
+
+// Function to truncate text to a specific length
+function truncateText(text: string, maxLength: number) {
+  if (text.length <= maxLength) return text;
+  return text.substr(0, maxLength) + '...';
+}
+
+// Function to format price (add currency symbol, handle decimals)
+function formatPrice(price: string | undefined) {
+  if (!price) return null;
+  const numPrice = parseFloat(price);
+  if (isNaN(numPrice)) return price;
+  return `$${numPrice.toFixed(2)}`;
+}
+
+// Function to calculate savings
+function calculateSavings(regularPrice: string | undefined, salePrice: string | undefined) {
+  if (!regularPrice || !salePrice) return null;
+  const regular = parseFloat(regularPrice);
+  const sale = parseFloat(salePrice);
+  if (isNaN(regular) || isNaN(sale)) return null;
+  return regular - sale;
+}
+
+// Price calculations
+const formattedPrice = formatPrice(product.price);
+const formattedRegularPrice = formatPrice(product.regularPrice);
+const formattedSalePrice = formatPrice(product.salePrice);
+const savings = calculateSavings(product.regularPrice, product.salePrice);
+
+// Prepare schema.org structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "description": metaDescription,
+  "brand": {
+    "@type": "Brand",
+    "name": "TileArt"
+  },
+  "manufacturer": {
+    "@type": "Organization",
+    "name": "TileArt"
+  }
+};
+
+// Add image to structured data if available
+if (product.image?.sourceUrl) {
+  structuredData.image = product.image.sourceUrl;
+}
+
+// Add category to structured data
+if (categories.length > 0) {
+  structuredData.category = categories[0].name;
+}
+
+// Add price to structured data if available
+if (formattedPrice) {
+  structuredData.offers = {
+    "@type": "Offer",
+    "price": product.price,
+    "priceCurrency": "USD",
+    "availability": product.stockStatus === 'IN_STOCK' ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+  };
+}
+---
+
+<Layout 
+  title={`${product.name} | TileArt Products`} 
+  description={metaDescription}
+>
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  
+  <!-- Breadcrumb Navigation -->
+  <nav class="bg-gray-50 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center space-x-2 text-sm text-gray-600">
+        <a href="/" class="hover:text-primary-600">Home</a>
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+        <a href="/products" class="hover:text-primary-600">Products</a>
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+        <span class="text-gray-900">{product.name}</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Product Details -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-x-12 lg:items-start">
+        <!-- Product Image Gallery -->
+        <div class="w-full">
+          <!-- Main Image Container -->
+          <div class="relative w-full h-96 md:h-[500px] mb-4 bg-gray-50 rounded-lg overflow-hidden">
+            {product.image?.sourceUrl ? (
+              <img 
+            src={product.image.sourceUrl} 
+            alt={product.image.altText || product.name}
+            class="w-full h-full object-contain"
+            id="main-product-image"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center">
+            <span class="text-primary-500 text-2xl">TileArt</span>
+              </div>
+            )}
+            
+            <!-- Navigation arrows for mobile -->
+            {(product.galleryImages && product.galleryImages.length > 0) && (
+              <>
+            <button 
+              class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md md:hidden transition-all"
+              onclick="previousImage()"
+              id="prev-btn"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button 
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-md md:hidden transition-all"
+              onclick="nextImage()"
+              id="next-btn"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+              </>
+            )}
+          </div>
+          
+          <!-- Thumbnail Gallery - Desktop -->
+          {(product.galleryImages && product.galleryImages.length > 0) || product.image?.sourceUrl ? (
+            <div class="hidden md:block">
+              <div class="flex space-x-3 overflow-x-auto pb-2">
+            <!-- Main image thumbnail -->
+            {product.image?.sourceUrl && (
+              <button 
+                class="flex-shrink-0 w-20 h-20 bg-gray-50 rounded-lg border-2 border-transparent hover:border-primary-300 focus:border-primary-500 focus:outline-none transition-all overflow-hidden"
+                onclick="changeMainImage(this.querySelector('img').src)"
+              >
+                <img 
+                  src={product.image.sourceUrl} 
+                  alt={product.image.altText || product.name}
+                  class="w-full h-full object-contain"
+                />
+              </button>
+            )}
+            
+            <!-- Gallery thumbnails -->
+            {product.galleryImages && product.galleryImages.map((image, index) => (
+              <button 
+                class="flex-shrink-0 w-20 h-20 bg-gray-50 rounded-lg border-2 border-transparent hover:border-primary-300 focus:border-primary-500 focus:outline-none transition-all overflow-hidden"
+                onclick="changeMainImage(this.querySelector('img').src)"
+              >
+                <img 
+                  src={image.sourceUrl} 
+                  alt={image.altText || `${product.name} view ${index + 2}`}
+                  class="w-full h-full object-contain"
+                />
+              </button>
+            ))}
+              </div>
+            </div>
+          ) : null}
+          
+          <!-- Dots indicator - Mobile -->
+          {(product.galleryImages && product.galleryImages.length > 0) && (
+            <div class="flex justify-center space-x-2 mt-4 md:hidden">
+              {product.image?.sourceUrl && (
+            <button 
+              class="w-2 h-2 rounded-full bg-primary-600 dot-indicator active"
+              onclick="goToImage(0)"
+            ></button>
+              )}
+              {product.galleryImages.map((_, index) => (
+            <button 
+              class="w-2 h-2 rounded-full bg-gray-300 dot-indicator"
+              onclick={`goToImage(${product.image?.sourceUrl ? index + 1 : index})`}
+            ></button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <script>
+          // Simple image gallery functionality
+          let currentImageIndex = 0;
+          let allImages: string[] = [];
+          
+          document.addEventListener('DOMContentLoaded', function() {
+            // Collect all images
+            const mainImage = document.querySelector('#main-product-image') as HTMLImageElement;
+            if (mainImage) {
+              allImages.push(mainImage.src);
+              
+              // Add gallery images if they exist
+              const galleryImages = document.querySelectorAll('[onclick*="changeMainImage"]');
+              galleryImages.forEach(thumb => {
+                const img = thumb.querySelector('img') as HTMLImageElement;
+                if (img && img.src !== mainImage.src) {
+                  allImages.push(img.src);
+                }
+              });
+            }
+            
+            updateDotIndicators();
+          });
+          
+          function changeMainImage(imageSrc: string): void {
+            const mainImage = document.getElementById('main-product-image') as HTMLImageElement;
+            if (mainImage) {
+              mainImage.src = imageSrc;
+              currentImageIndex = allImages.indexOf(imageSrc);
+              updateDotIndicators();
+            }
+          }
+          
+          function previousImage(): void {
+            if (allImages.length > 0) {
+              currentImageIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+              changeMainImage(allImages[currentImageIndex]);
+            }
+          }
+          
+          function nextImage(): void {
+            if (allImages.length > 0) {
+              currentImageIndex = (currentImageIndex + 1) % allImages.length;
+              changeMainImage(allImages[currentImageIndex]);
+            }
+          }
+          
+          function goToImage(index: number): void {
+            if (index >= 0 && index < allImages.length) {
+              currentImageIndex = index;
+              changeMainImage(allImages[currentImageIndex]);
+            }
+          }
+          
+          function updateDotIndicators(): void {
+            const dots = document.querySelectorAll('.dot-indicator');
+            dots.forEach((dot, index) => {
+              if (index === currentImageIndex) {
+                dot.classList.add('active');
+                dot.classList.remove('bg-gray-300');
+                dot.classList.add('bg-primary-600');
+              } else {
+                dot.classList.remove('active');
+                dot.classList.remove('bg-primary-600');
+                dot.classList.add('bg-gray-300');
+              }
+            });
+          }
+
+          // Make functions available globally
+          (window as any).changeMainImage = changeMainImage;
+          (window as any).previousImage = previousImage;
+          (window as any).nextImage = nextImage;
+          (window as any).goToImage = goToImage;
+        </script>
+
+        <!-- Product Info -->
+        <div class="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+          <!-- Categories -->
+          {categories.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-4">
+              {categories.map(category => (
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-50 text-primary-700">
+                  {category.name}
+                </span>
+              ))}
+            </div>
+          )}
+          
+          <!-- Product Name -->
+          <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            {product.name}
+          </h1>
+          
+          <!-- Sale and Featured Badges -->
+          <div class="mt-3 flex flex-wrap gap-2">
+            {product.onSale && (
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                On Sale
+              </span>
+            )}
+            {product.featured && (
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-600 text-white">
+                Featured Product
+              </span>
+            )}
+          </div>
+          
+          <!-- Price Section -->
+          {formattedPrice && (
+            <div class="mt-6">
+              {product.onSale && formattedSalePrice && formattedRegularPrice ? (
+                <div class="space-y-2">
+                  <div class="flex items-center space-x-3">
+                    <span class="text-3xl font-bold text-primary-600">{formattedSalePrice}</span>
+                    <span class="text-xl text-gray-500 line-through">{formattedRegularPrice}</span>
+                  </div>
+                  {savings && savings > 0 && (
+                    <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                      Save ${savings.toFixed(2)}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div class="text-3xl font-bold text-gray-900">
+                  Starting from {formattedPrice}
+                </div>
+              )}
+              <div class="mt-2 space-y-1">
+                {product.type === 'VARIABLE' && (
+                  <p class="text-sm text-gray-600">*Price varies by selected options</p>
+                )}
+                <p class="text-sm text-gray-600">*Contact us for bulk pricing and custom quotes</p>
+              </div>
+            </div>
+          )}
+          
+          <!-- Stock Status -->
+          {product.stockStatus && (
+            <div class="mt-4">
+              <span class={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                product.stockStatus === 'IN_STOCK' 
+                  ? 'bg-green-100 text-green-800' 
+                  : product.stockStatus === 'OUT_OF_STOCK'
+                  ? 'bg-red-100 text-red-800'
+                  : 'bg-yellow-100 text-yellow-800'
+              }`}>
+                {product.stockStatus === 'IN_STOCK' && '✓ In Stock'}
+                {product.stockStatus === 'OUT_OF_STOCK' && '✕ Out of Stock'}
+                {product.stockStatus === 'ON_BACKORDER' && '⏳ On Backorder'}
+                {!['IN_STOCK', 'OUT_OF_STOCK', 'ON_BACKORDER'].includes(product.stockStatus) && product.stockStatus}
+              </span>
+              {product.stockQuantity && product.stockStatus === 'IN_STOCK' && (
+                <span class="ml-2 text-sm text-gray-600">
+                  ({product.stockQuantity} available)
+                </span>
+              )}
+            </div>
+          )}
+          
+          <!-- Product Description -->
+          <div class="mt-8">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Description</h3>
+            <div 
+              class="text-base text-gray-900 prose max-w-none"
+              set:html={product.description || product.shortDescription || ''}
+            />
+          </div>
+          
+          <!-- Product Variations (for Variable Products) -->
+          {product.variations && product.variations.length > 0 && (
+            <div class="mt-8">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Available Variations</h3>
+              <div class="space-y-3">
+                {product.variations.slice(0, 5).map((variation, index) => (
+                  <div class="flex justify-between items-center p-3 border border-gray-200 rounded-lg">
+                    <div>
+                      <span class="font-medium text-gray-900">{variation.name}</span>
+                      {variation.attributes && variation.attributes.length > 0 && (
+                        <div class="text-sm text-gray-600 mt-1">
+                          {variation.attributes.map(attr => `${attr.name}: ${attr.value}`).join(', ')}
+                        </div>
+                      )}
+                    </div>
+                    {variation.price && (
+                      <span class="font-medium text-primary-600">
+                        {formatPrice(variation.price)}
+                      </span>
+                    )}
+                  </div>
+                ))}
+                {product.variations.length > 5 && (
+                  <p class="text-sm text-gray-600">
+                    +{product.variations.length - 5} more variations available
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+          
+          <!-- Product Attributes -->
+          {product.attributes && product.attributes.length > 0 && (
+            <div class="mt-8">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Specifications</h3>
+              <div class="space-y-4">
+                {product.attributes.map(attribute => (
+                  <div class="flex justify-between items-start py-2 border-b border-gray-200">
+                    <span class="text-sm font-medium text-gray-900">{attribute.name}</span>
+                    <span class="text-sm text-gray-600 text-right max-w-xs">
+                      {attribute.options?.join(', ') || 'Various options available'}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          <!-- Contact Information -->
+          <div class="mt-10 border-t border-gray-200 pt-8">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Interested in this product?</h3>
+            <p class="text-gray-600 mb-6">
+              Contact our design experts for more information, availability, custom quotes, and personalized recommendations.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a 
+                href="/contact-us" 
+                class="flex-1 bg-primary-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+              >
+                Get Quote
+              </a>
+              <a 
+                href={`tel:+1234567890`} 
+                class="flex-1 bg-white border border-gray-300 rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+              >
+                Call Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Related Products -->
+  {relatedProducts.length > 0 && (
+    <section class="bg-gray-50 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">You might also like</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {relatedProducts.map(relatedProduct => {
+            // Clean description
+            const cleanDescription = relatedProduct.shortDescription || relatedProduct.description ? 
+              stripHtml(relatedProduct.shortDescription || relatedProduct.description) : '';
+            const truncatedDescription = truncateText(cleanDescription, 80);
+            
+            // Price calculations for related products
+            const relatedFormattedPrice = formatPrice(relatedProduct.price);
+            const relatedFormattedSalePrice = formatPrice(relatedProduct.salePrice);
+            const relatedFormattedRegularPrice = formatPrice(relatedProduct.regularPrice);
+            
+            return (
+              <article class="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col h-full">
+                <div class="relative h-48 overflow-hidden">
+                  {relatedProduct.image?.sourceUrl ? (
+                    <img 
+                      src={relatedProduct.image.sourceUrl} 
+                      alt={relatedProduct.image.altText || relatedProduct.name}
+                      class="w-full h-full object-contain bg-gray-50 transition-transform duration-500 hover:scale-105"
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-primary-100 flex items-center justify-center">
+                      <span class="text-primary-500">TileArt</span>
+                    </div>
+                  )}
+                  
+                  {/* Sale Badge */}
+                  {relatedProduct.onSale && (
+                    <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                      Sale
+                    </div>
+                  )}
+                </div>
+                
+                <div class="p-4 flex flex-col flex-grow">
+                  <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                    <a href={`/products/${relatedProduct.slug}`} class="hover:text-primary-700 transition-colors">
+                      {relatedProduct.name}
+                    </a>
+                  </h3>
+                  
+                  <p class="text-gray-600 mb-3 flex-grow text-sm line-clamp-2">
+                    {truncatedDescription}
+                  </p>
+                  
+                  {/* Price for related products */}
+                  {relatedFormattedPrice && (
+                    <div class="mb-3">
+                      {relatedProduct.onSale && relatedFormattedSalePrice && relatedFormattedRegularPrice ? (
+                        <div class="flex items-center space-x-2">
+                          <span class="text-sm font-bold text-primary-600">{relatedFormattedSalePrice}</span>
+                          <span class="text-xs text-gray-500 line-through">{relatedFormattedRegularPrice}</span>
+                        </div>
+                      ) : (
+                        <span class="text-sm font-bold text-gray-900">{relatedFormattedPrice}</span>
+                      )}
+                    </div>
+                  )}
+                  
+                  <a 
+                    href={`/products/${relatedProduct.slug}`} 
+                    class="mt-auto inline-flex items-center text-primary-600 hover:text-primary-800 font-medium text-sm"
+                  >
+                    View Details
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  /* Line clamp for titles */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Prose customizations for product description */
+  .prose img {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.5rem;
+  }
+  
+  .prose a {
+    color: var(--color-primary-600);
+    text-decoration: none;
+  }
+  
+  .prose a:hover {
+    text-decoration: underline;
+  }
+</style>

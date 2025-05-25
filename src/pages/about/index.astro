@@ -1,109 +1,144 @@
 ---
+// filepath: c:\Users\HARSH\OneDrive\Desktop\gullible-group\src\pages\about\index.astro
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import bannerImage from '../../assets/banner-3.jpg';
+import bannerImage from '../../assets/bannerImage/banner-2.jpg';
 
-// Team members data
-const teamMembers = [
-  {
-    name: "Sarah Johnson",
-    position: "Founder & Creative Director",
-    bio: "With over 15 years of experience in interior design, Sarah founded TileArt with a vision to bring unique, high-quality tile designs to homes across the country.",
-    image: bannerImage
-  },
-  {
-    name: "Michael Chen",
-    position: "Design Specialist",
-    bio: "Michael brings his architectural background to create innovative tile patterns that blend functionality with stunning aesthetics.",
-    image: bannerImage
-  },
-  {
-    name: "Olivia Rodriguez",
-    position: "Production Manager",
-    bio: "Olivia ensures that every tile produced meets our exacting standards for quality and durability.",
-    image: bannerImage
-  },
-  {
-    name: "James Wilson",
-    position: "Customer Experience Lead",
-    bio: "James is dedicated to ensuring that each customer finds the perfect tiles for their space and has a seamless experience from selection to installation.",
-    image: bannerImage
-  }
-];
+import { getPageSEO } from '../../../graphql/pageSeo';
+import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
 
-// Company values
+// Fetch SEO data for the about page
+const aboutSEO = await getPageSEO(GRAPH_QL_LINK, 'about', WP_USERNAME, WP_APP_PASSWORD);
+
+// Use WordPress SEO data or fallback to new SEO-optimized defaults
+const pageTitle = aboutSEO?.title || "About Us | The Tile-Art - Crafting Exceptional Spaces with Quality Tiles";
+const pageDescription = aboutSEO?.metaDescription || "Learn about The Tile-Art's mission to transform spaces with premium tiles. Discover our values of innovation, sustainability, and customer satisfaction.";
+
+// Core values with updated content
 const values = [
   {
-    title: "Quality",
-    description: "We never compromise on materials or craftsmanship. Every tile is made to last for decades.",
-    icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-  },
-  {
-    title: "Sustainability",
-    description: "We're committed to environmentally responsible production methods and materials.",
-    icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-  },
-  {
     title: "Innovation",
-    description: "We're constantly exploring new designs, materials, and techniques to push the boundaries of what's possible.",
+    description: "We continuously explore new designs, patterns, and materials to stay at the forefront of industry trends.",
     icon: "M13 10V3L4 14h7v7l9-11h-7z"
   },
   {
-    title: "Customer Focus",
-    description: "We believe in building long-term relationships with our customers through outstanding service and support.",
+    title: "Quality",
+    description: "Every tile is crafted with precision, using top-grade materials to ensure durability and elegance.",
+    icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+  },
+  {
+    title: "Customer Satisfaction",
+    description: "Your happiness is our priority. We work closely with you to turn your vision into reality.",
     icon: "M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905a3.61 3.61 0 01-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+  },
+  {
+    title: "Eco-Friendliness",
+    description: "Sustainability is at our core. Our eco-friendly tiles are designed to minimize environmental impact without compromising on style.",
+    icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
   }
 ];
 
-// Timeline milestones
-const timeline = [
+// Why Choose Us features
+const whyChooseUs = [
   {
-    year: "2010",
-    title: "Company Founded",
-    description: "TileArt was established with a small studio and a team of three dedicated artisans."
+    title: "Expertise",
+    description: "With decades of experience, our team understands tiles like no one else.",
+    icon: "academic-cap"
   },
   {
-    year: "2013",
-    title: "First Major Collection",
-    description: "We launched our first complete collection, 'Mediterranean Dreams,' which quickly gained popularity."
+    title: "Customization", 
+    description: "Your vision, our craftsmanship. We offer bespoke tile designs to suit your unique preferences.",
+    icon: "color-swatch"
   },
   {
-    year: "2016",
-    title: "Expanded Production",
-    description: "We moved to a larger facility and doubled our production capacity to meet growing demand."
+    title: "Cutting-Edge Technology",
+    description: "Advanced manufacturing processes ensure every tile is a work of art.",
+    icon: "cog"
   },
   {
-    year: "2019",
-    title: "International Recognition",
-    description: "TileArt designs were featured in International Design Magazine and won the prestigious Ceramic Excellence Award."
+    title: "Comprehensive Support",
+    description: "Our dedicated team is always here to guide you, from selecting the perfect tile to post-purchase support.",
+    icon: "support"
+  }
+];
+
+// Updated team members to be more generic/professional
+const teamMembers = [
+  {
+    name: "Design Team",
+    position: "Creative Visionaries",
+    bio: "Our passionate designers work tirelessly to create innovative patterns and styles that set trends in the tile industry.",
+    image: bannerImage
   },
   {
-    year: "2022",
-    title: "Sustainable Initiatives",
-    description: "We implemented new eco-friendly production processes and launched our recycled materials collection."
+    name: "Manufacturing Team",
+    position: "Skilled Artisans",
+    bio: "Expert craftspeople who bring our designs to life with precision and attention to detail in every tile produced.",
+    image: bannerImage
+  },
+  {
+    name: "Quality Control",
+    position: "Excellence Guardians",
+    bio: "Dedicated professionals ensuring every tile meets our exacting standards for durability and beauty.",
+    image: bannerImage
+  },
+  {
+    name: "Customer Support",
+    position: "Experience Specialists",
+    bio: "Our customer-focused team guides you through your tile selection journey from inspiration to installation.",
+    image: bannerImage
+  }
+];
+
+// Company story milestones (updated to be more generic)
+const storyMilestones = [
+  {
+    year: "Founded",
+    title: "Humble Beginnings",
+    description: "Started as a small family-owned business with a passion for exceptional tile design."
+  },
+  {
+    year: "Growth",
+    title: "Expanding Horizons", 
+    description: "Grew our product range and customer base, becoming a trusted name in the tile industry."
+  },
+  {
+    year: "Innovation",
+    title: "Technological Advancement",
+    description: "Invested in cutting-edge manufacturing technology to enhance quality and precision."
+  },
+  {
+    year: "Sustainability",
+    title: "Green Initiative",
+    description: "Committed to eco-friendly practices and sustainable tile production methods."
+  },
+  {
+    year: "Today",
+    title: "Industry Leader",
+    description: "Leading tile brand loved by designers, architects, and homeowners across the country."
   }
 ];
 ---
 
-<Layout title="About TileArt - Our Story & Mission">
+<Layout title={pageTitle} description={pageDescription}>
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-primary-50">
     <div class="absolute inset-0 z-0">
       <Image 
         src={bannerImage} 
-        alt="Artistic tile patterns" 
+        alt="The Tile-Art crafting exceptional tile designs" 
         class="w-full h-full object-cover opacity-20"
         width={1920}
         height={1080}
       />
     </div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-      <div class="max-w-3xl">
+      <div class="max-w-4xl">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-900 mb-6">
-          Our Story
+          About The Tile-Art
         </h1>
         <p class="text-xl md:text-2xl text-primary-800 mb-8">
-          Crafting beautiful tiles with passion and precision since 2010
+          Transforming spaces into masterpieces with exceptional tiles through design, functionality, and sustainability.
         </p>
       </div>
     </div>
@@ -117,96 +152,134 @@ const timeline = [
           <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-6">
             Our Mission
           </h2>
-          <p class="text-lg text-gray-700 mb-6">
-            At TileArt, we believe that tiles are more than just functional elements—they're an expression of style and personality. Our mission is to create exceptional tile designs that transform ordinary spaces into extraordinary environments.
+          <p class="text-lg text-neutral-700 mb-6">
+            At The Tile-Art, our mission is simple yet powerful: to transform spaces into masterpieces with exceptional tiles. We aim to blend design, functionality, and sustainability to provide unmatched value to our customers.
           </p>
-          <p class="text-lg text-gray-700 mb-6">
-            We combine traditional craftsmanship with innovative techniques to produce tiles that are not only beautiful but also durable and sustainable. Every piece we create is a testament to our commitment to quality and artistic excellence.
-          </p>
-          <p class="text-lg text-gray-700">
-            Whether you're renovating your home or working on a commercial project, our goal is to provide you with tiles that inspire and delight for years to come.
-          </p>
+          <div class="bg-primary-50 p-6 rounded-lg">
+            <p class="text-lg text-primary-800 italic font-medium">
+              "We believe that every space has the potential to become extraordinary, and our tiles are the key to unlocking that potential."
+            </p>
+          </div>
         </div>
         
         <div class="relative h-full min-h-[400px]">
           <Image 
             src={bannerImage} 
-            alt="Artisan working on tile design" 
+            alt="Exceptional tile designs and craftsmanship" 
             class="w-full h-full object-cover rounded-lg shadow-xl"
             width={800}
             height={600}
           />
-          <div class="absolute -bottom-6 -left-6 bg-primary-100 p-6 rounded-lg shadow-lg max-w-xs">
-            <p class="italic text-primary-800 font-medium">
-              "We pour our hearts into every tile we create, ensuring each one tells a unique story."
+          <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-lg shadow-lg max-w-xs">
+            <div class="flex items-center space-x-2 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <span class="font-bold text-primary-900">Trusted by thousands</span>
+            </div>
+            <p class="text-neutral-600 text-sm">
+              Homeowners and professionals choose us for quality and reliability.
             </p>
-            <p class="mt-2 text-primary-700 font-semibold">— Sarah Johnson, Founder</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Values Section -->
+  <!-- Who We Are Section -->
   <section class="py-16 md:py-24 bg-primary-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-8">
+          Who We Are
+        </h2>
+        <p class="text-lg text-neutral-700 mb-6">
+          The Tile-Art was founded with a passion for redefining interiors and exteriors through exquisite tile designs. Over the years, we've grown into a trusted name in the tile industry, known for craftsmanship, innovation, and a relentless commitment to serving our customers.
+        </p>
+        <p class="text-lg text-neutral-700 mb-8">
+          We specialize in creating tiles that not only enhance the beauty of your spaces but also stand the test of time. Whether you're renovating your home, building your dream kitchen, or designing a luxurious office, The Tile-Art is your partner in making it extraordinary.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary-600 mb-2">10,000+</div>
+            <div class="text-neutral-600">Happy Customers</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary-600 mb-2">500+</div>
+            <div class="text-neutral-600">Unique Designs</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-primary-600 mb-2">99%</div>
+            <div class="text-neutral-600">Customer Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values Section -->
+  <section class="py-16 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
-          Our Values
+          Our Core Values
         </h2>
-        <p class="text-xl text-primary-800 max-w-3xl mx-auto">
-          The principles that guide everything we do
+        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          The principles that guide everything we do and define who we are
         </p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {values.map(value => (
-          <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-            <div class="rounded-full bg-primary-100 w-16 h-16 flex items-center justify-center mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="bg-primary-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 group">
+            <div class="rounded-full bg-primary-600 w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-primary-700 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={value.icon} />
               </svg>
             </div>
             <h3 class="text-xl font-semibold text-primary-900 mb-3">{value.title}</h3>
-            <p class="text-gray-700">{value.description}</p>
+            <p class="text-neutral-700">{value.description}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Timeline Section -->
-  <section class="py-16 md:py-24 bg-white">
+  <!-- Our Story Section -->
+  <section class="py-16 md:py-24 bg-primary-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
-          Our Journey
+          Our Story
         </h2>
-        <p class="text-xl text-primary-800 max-w-3xl mx-auto">
-          Key milestones in the TileArt story
+        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          What began as a small family-owned business has blossomed into a leading tile brand loved by designers, architects, and homeowners across the country.
         </p>
       </div>
       
       <div class="relative">
         <!-- Timeline line -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary-200"></div>
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary-200 hidden md:block"></div>
         
         <div class="space-y-12">
-          {timeline.map((milestone, index) => (
-            <div class={`relative z-10 flex items-center ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}>
-              <div class="flex-1"></div>
+          {storyMilestones.map((milestone, index) => (
+            <div class={`relative z-10 flex items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+              <div class="flex-1 hidden md:block"></div>
               
               <div class="flex flex-col items-center mx-4 sm:mx-6">
-                <div class="rounded-full bg-primary-600 w-10 h-10 flex items-center justify-center">
-                  <span class="text-white font-bold">{milestone.year.substring(2)}</span>
+                <div class="rounded-full bg-primary-600 w-12 h-12 flex items-center justify-center mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
                 </div>
-                <div class="text-xl font-bold text-primary-900 mt-2">{milestone.year}</div>
+                <div class="text-lg font-bold text-primary-600">{milestone.year}</div>
               </div>
               
               <div class="flex-1">
-                <div class="bg-primary-50 p-6 rounded-lg shadow-sm">
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                   <h3 class="text-xl font-semibold text-primary-900 mb-2">{milestone.title}</h3>
-                  <p class="text-gray-700">{milestone.description}</p>
+                  <p class="text-neutral-700">{milestone.description}</p>
                 </div>
               </div>
             </div>
@@ -216,26 +289,73 @@ const timeline = [
     </div>
   </section>
 
+  <!-- Why Choose Us Section -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+          Why Choose Us?
+        </h2>
+        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          Discover what sets The Tile-Art apart from the competition
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {whyChooseUs.map(feature => (
+          <div class="text-center group">
+            <div class="rounded-full bg-primary-100 w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-600 transition-colors">
+              {feature.icon === 'academic-cap' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
+              )}
+              {feature.icon === 'color-swatch' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                </svg>
+              )}
+              {feature.icon === 'cog' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              )}
+              {feature.icon === 'support' && (
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-primary-900">{feature.title}</h3>
+            <p class="text-neutral-700">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Team Section -->
   <section class="py-16 md:py-24 bg-primary-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
-          Meet Our Team
+          Meet the Team
         </h2>
-        <p class="text-xl text-primary-800 max-w-3xl mx-auto">
-          The talented individuals behind our beautiful tile designs
+        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+          Behind every stunning tile is a team of passionate designers, skilled artisans, and customer support experts. We take pride in our collaborative approach to bring your ideas to life.
         </p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {teamMembers.map(member => (
-          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group">
             <div class="h-64 overflow-hidden">
               <Image 
                 src={member.image} 
-                alt={member.name} 
-                class="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500"
+                alt={`${member.name} - ${member.position}`} 
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 width={500}
                 height={500}
               />
@@ -243,10 +363,73 @@ const timeline = [
             <div class="p-6">
               <h3 class="text-xl font-semibold text-primary-900 mb-1">{member.name}</h3>
               <p class="text-primary-600 font-medium mb-4">{member.position}</p>
-              <p class="text-gray-700">{member.bio}</p>
+              <p class="text-neutral-700">{member.bio}</p>
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sustainability Section -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="relative h-full min-h-[400px]">
+          <Image 
+            src={bannerImage} 
+            alt="Sustainable tile manufacturing and eco-friendly practices" 
+            class="w-full h-full object-cover rounded-lg shadow-xl"
+            width={800}
+            height={600}
+          />
+          <div class="absolute -top-6 -right-6 bg-green-100 p-6 rounded-lg shadow-lg max-w-xs">
+            <div class="flex items-center space-x-2 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+              <span class="font-bold text-green-800">Eco-Friendly</span>
+            </div>
+            <p class="text-green-700 text-sm">
+              Committed to sustainable practices and materials.
+            </p>
+          </div>
+        </div>
+        
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-6">
+            Committed to Sustainability
+          </h2>
+          <p class="text-lg text-neutral-700 mb-6">
+            We believe beautiful spaces should also be sustainable. From sourcing eco-friendly materials to energy-efficient production practices, we're shaping a greener future, one tile at a time.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <p class="text-neutral-700">Eco-friendly raw materials sourcing</p>
+            </div>
+            <div class="flex items-start space-x-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <p class="text-neutral-700">Energy-efficient production processes</p>
+            </div>
+            <div class="flex items-start space-x-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <p class="text-neutral-700">Waste reduction and recycling initiatives</p>
+            </div>
+            <div class="flex items-start space-x-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <p class="text-neutral-700">Carbon footprint reduction programs</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -255,19 +438,36 @@ const timeline = [
   <section class="py-16 md:py-24 bg-primary-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">
-        Ready to Transform Your Space?
+        Join the Tile-Art Family
       </h2>
       <p class="text-xl text-primary-100 max-w-3xl mx-auto mb-10">
-        Visit our showroom or contact us today to explore our collection and find the perfect tiles for your project.
+        We invite you to experience the difference with The Tile-Art. Explore our collections, find your inspiration, and transform your space with tiles that tell a story.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/shop" class="bg-white text-primary-900 hover:bg-primary-100 px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
-          Browse Collection
+        <a href="/contact-us" class="bg-white text-primary-900 hover:bg-primary-50 px-10 py-4 rounded-full font-bold text-lg transition-colors">
+          Contact Us Today
         </a>
-        <a href="/contact" class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 rounded-full font-medium transition transform hover:scale-105">
-          Contact Us
+        <a href="/products" class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-4 rounded-full font-bold text-lg transition-all">
+          Explore Collections
         </a>
       </div>
+      <p class="text-primary-200 mt-6">
+        Together, let's bring your dream space to life.
+      </p>
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Animation for timeline items */
+  @media (min-width: 768px) {
+    .timeline-item:nth-child(even) {
+      text-align: right;
+    }
+  }
+</style>

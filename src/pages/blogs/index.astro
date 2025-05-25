@@ -4,6 +4,14 @@ import Layout from '../../layouts/Layout.astro';
 import { getAllPosts } from '../../../graphql/blogs';
 import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
 import Image from 'astro/components/Image.astro';
+import { getPageSEO } from '../../../graphql/pageSeo';
+
+// Fetch SEO data for the home page
+const homeSEO = await getPageSEO(GRAPH_QL_LINK, 'blogs', WP_USERNAME, WP_APP_PASSWORD);
+
+// Use WordPress SEO data or fallback to defaults
+const pageTitle = homeSEO?.title || 'Blog | TileArt - Discover Our Latest Insights';
+const pageDescription = homeSEO?.metaDescription || 'Transform your space with premium ceramic and porcelain tiles for every room in your home';
 
 
 // Fetch all blog posts
@@ -21,7 +29,7 @@ function truncateText(text: string, maxLength: number) {
 }
 ---
 
-<Layout title="Blog | TileArt - Discover Our Latest Insights">
+<Layout title={pageTitle} description={pageDescription}>
   <!-- Hero Section -->
   <section class="relative bg-primary-50 py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

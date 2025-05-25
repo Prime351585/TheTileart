@@ -1,3 +1,4 @@
+import type { MenuItem } from "../env";
 export async function getMenuByName(
   endpoint: string, 
   menuName: string, 

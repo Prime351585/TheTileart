@@ -1,10 +1,10 @@
 import type { Post } from "../env";
 /**
- * Fetches all blog posts with summary information
+ * Fetches all blog posts with complete information
  * @param endpoint GraphQL endpoint URL
  * @param username Optional WordPress username for authentication
  * @param appPassword Optional WordPress application password
- * @returns Array of posts with summary information
+ * @returns Array of posts with complete information
  */
 export async function getAllPosts(
   endpoint: string,
@@ -40,27 +40,63 @@ export async function getAllPosts(
         query: `
           query GetAllPosts {
             posts(first: 100) {
-              edges {
-                node {
-                  id
-                  slug
-                  title
-                  date
-                  excerpt(format: RENDERED)
-                  featuredImage {
-                    node {
-                      altText
-                      sourceUrl
+              nodes {
+                databaseId
+                id
+                slug
+                title
+                date
+                content(format: RENDERED)
+                excerpt(format: RENDERED)
+                seo {
+                  breadcrumbTitle
+                  canonicalUrl
+                  description
+                  focusKeywords
+                  fullHead
+                  jsonLd {
+                    raw
+                  }
+                  openGraph {
+                    description
+                    locale
+                    siteName
+                    title
+                    type
+                    url
+                    twitterMeta {
+                      card
+                      description
+                      title
                     }
                   }
-                  categories {
-                    edges {
-                      node {
-                        id
-                        name
-                        slug
-                      }
-                    }
+                  robots
+                  title
+                  isPillarContent
+                  seoScore {
+                    badgeHtml
+                    hasFrontendScore
+                    rating
+                    score
+                  }
+                }
+                featuredImage {
+                  node {
+                    altText
+                    sourceUrl
+                  }
+                }
+                categories {
+                  nodes {
+                    id
+                    name
+                    slug
+                  }
+                }
+                author {
+                  node {
+                    name
+                    slug
                   }
                 }
               }
@@ -71,114 +107,60 @@ export async function getAllPosts(
     });
     
     const data = await response.json();
-    if (!data.data?.posts?.edges) {
-        console.error('No posts found or unexpected response structure:', data);
-        return [];
+    // console.log('GraphQL Response:', data);
+    
+    if (!data.data?.posts?.nodes) {
+      console.error('No posts found or unexpected response structure:', data);
+      return [];
     }
     
     // Map the response to our Post interface
-    return data.data.posts.edges.map((edge: any) => {
-        const post = edge.node;
+    return data.data.posts.nodes.map((post: any) => {
+
+      // Extract meta description from RankMath SEO
+      let metaDescription = '';
+      if (post.seo?.description) {
+        metaDescription = post.seo.description;
+      } else if (post.seo?.openGraph?.description) {
+        metaDescription = post.seo.openGraph.description;
+      } else if (post.excerpt) {
+        // If no meta description is found, generate one from the excerpt
+        // Strip HTML and limit to ~160 characters
+        metaDescription = post.excerpt
+          .replace(/<\/?[^>]+(>|$)/g, "") // Remove HTML tags
+          .substring(0, 157).trim();
+        
+        if (metaDescription.length >= 157) {
+          metaDescription += "...";
+        }
+      }
       
-      return post;
+      // Transform categories from nodes structure to edges structure for compatibility
+      const categories = {
+        edges: post.categories?.nodes?.map((category: any) => ({
+          node: category
+        })) || []
+      };
+    //   console.log(metaDescription)
+      return {
+        id: post.id,
+        databaseId: post.databaseId,
+        slug: post.slug,
+        title: post.title,
+        date: post.date,
+        content: post.content,
+        excerpt: post.excerpt,
+        metaDescription,
+        seo: post.seo,
+        featuredImage: post.featuredImage,
+        categories,
+        author: post.author
+      };
     });
     
   } catch (error) {
     console.error('Error fetching all posts:', error);
     return [];
-  }
-}
-
-/**
- * Fetches a single blog post by its slug
- * @param endpoint GraphQL endpoint URL
- * @param slug Post slug to fetch
- * @param username Optional WordPress username for authentication
- * @param appPassword Optional WordPress application password
- * @returns Single post object or null if not found
- */
-export async function getPostBySlug(
-  endpoint: string,
-  slug: string,
-  username?: string,
-  appPassword?: string
-): Promise<Post | null> {
-  try {
-    // Setup headers with authentication if credentials are provided
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json'
-    };
-    
-    // Add Basic Auth header if username and app password are provided
-    if (username && appPassword) {
-      // Remove spaces from application password
-      const cleanPassword = appPassword.replace(/\s+/g, '');
-      
-      // Use Buffer for Node.js environments or the universal btoa approach
-      let authString;
-      if (typeof Buffer !== 'undefined') {
-        authString = Buffer.from(`${username}:${cleanPassword}`).toString('base64');
-      } else {
-        authString = btoa(`${username}:${cleanPassword}`);
-      }
-      
-      headers['Authorization'] = `Basic ${authString}`;
-    }
-
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query: `
-          query GetPostBySlug($slug: ID!) {
-            post(id: $slug, idType: SLUG) {
-              id
-              slug
-              title
-              date
-              content(format: RENDERED)
-              featuredImage {
-                node {
-                  altText
-                  sourceUrl
-                }
-              }
-              categories {
-                edges {
-                  node {
-                    id
-                    name
-                    slug
-                  }
-                }
-              }
-            }
-          }
-        `,
-        variables: { slug }
-      })
-    });
-    
-    const data = await response.json();
-    
-    if (!data.data?.post) {
-      console.error(`Post with slug '${slug}' not found or error in response:`, data);
-      return null;
-    }
-    
-    const post = data.data.post;
-    
-    // Process image URLs if needed
-    if (post.featuredImage?.node?.sourceUrl) {
-      // Clean up WordPress URLs if needed
-      post.featuredImage.node.sourceUrl = post.featuredImage.node.sourceUrl.replace(/^https?:\/\/[^\/]+\/wordpress/i, '');
-    }
-    
-    return post;
-    
-  } catch (error) {
-    console.error(`Error fetching post with slug '${slug}':`, error);
-    return null;
   }
 }
 
@@ -278,97 +260,6 @@ export async function getPostsByCategory(
     
   } catch (error) {
     console.error(`Error fetching posts for category '${categorySlug}':`, error);
-    return [];
-  }
-}
-
-/**
- * Fetches recent posts
- * @param endpoint GraphQL endpoint URL
- * @param count Number of recent posts to fetch
- * @param username Optional WordPress username for authentication
- * @param appPassword Optional WordPress application password
- * @returns Array of most recent posts
- */
-export async function getRecentPosts(
-  endpoint: string,
-  count: number = 5,
-  username?: string,
-  appPassword?: string
-): Promise<Post[]> {
-  try {
-    // Setup headers with authentication if credentials are provided
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json'
-    };
-    
-    // Add Basic Auth header if username and app password are provided
-    if (username && appPassword) {
-      // Remove spaces from application password
-      const cleanPassword = appPassword.replace(/\s+/g, '');
-      
-      // Use Buffer for Node.js environments or the universal btoa approach
-      let authString;
-      if (typeof Buffer !== 'undefined') {
-        authString = Buffer.from(`${username}:${cleanPassword}`).toString('base64');
-      } else {
-        authString = btoa(`${username}:${cleanPassword}`);
-      }
-      
-      headers['Authorization'] = `Basic ${authString}`;
-    }
-
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query: `
-          query GetRecentPosts($count: Int!) {
-            posts(first: $count, where: {orderby: {field: DATE, order: DESC}}) {
-              edges {
-                node {
-                  id
-                  slug
-                  title
-                  date
-                  excerpt(format: RENDERED)
-                  featuredImage {
-                    node {
-                      altText
-                      sourceUrl
-                    }
-                  }
-                }
-              }
-            }
-          }
-        `,
-        variables: { count }
-      })
-    });
-    
-    const data = await response.json();
-    
-    if (!data.data?.posts?.edges) {
-      console.error('No recent posts found or unexpected response:', data);
-      return [];
-    }
-    
-    // Map the response to our Post interface
-    return data.data.posts.edges.map((edge: any) => {
-      const post = edge.node;
-      
-      // Process paths for WordPress URLs if needed
-      if (post.featuredImage?.node?.sourceUrl) {
-        // Clean up WordPress URLs if needed
-        post.featuredImage.node.sourceUrl = post.featuredImage.node.sourceUrl.replace(/^https?:\/\/[^\/]+\/wordpress/i, '');
-      }
-      
-      return post;
-    });
-    
-  } catch (error) {
-    console.error('Error fetching recent posts:', error);
     return [];
   }
 }

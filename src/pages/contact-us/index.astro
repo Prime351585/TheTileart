@@ -1,7 +1,16 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import contactImage from '../../assets/banner-3.jpg'; // Using the same banner image for consistency
+import contactImage from '../../assets/bannerImage/banner-2.jpg'; // Using the same banner image for consistency
+import { getPageSEO } from '../../../graphql/pageSeo';
+import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
+
+// Fetch SEO data for the home page
+const homeSEO = await getPageSEO(GRAPH_QL_LINK, 'contact-us', WP_USERNAME, WP_APP_PASSWORD);
+
+// Use WordPress SEO data or fallback to defaults
+const pageTitle = homeSEO?.title || 'Contact TileArt - Get in Touch With Our Team';
+const pageDescription = homeSEO?.metaDescription || 'Contact TileArt - Get in Touch With Our Team';
 
 // Define contact information
 const contactInfo = [
@@ -36,7 +45,7 @@ const businessHours = [
 const whatsappNumber = "15551234567"; // Replace with your actual WhatsApp number
 ---
 
-<Layout title="Contact TileArt - Get in Touch With Our Team">
+<Layout title={pageTitle} description={pageDescription}>
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-primary-50">
     <div class="absolute inset-0 z-0">
