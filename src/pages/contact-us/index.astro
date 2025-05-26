@@ -17,20 +17,20 @@ const contactInfo = [
   {
     icon: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 8V5z",
     title: "Call Us",
-    details: "+1 (555) 123-4567",
-    link: "tel:+15551234567"
+    details: "+91 9667725508",
+    link: "tel:+919667725508"
   },
   {
     icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
     title: "Email Us",
-    details: "info@tileart.com",
-    link: "mailto:info@tileart.com"
+    details: "thetileart0@gmail.com",
+    link: "mailto:thetileart0@gmail.com"
   },
   {
     icon: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
     title: "Visit Us",
-    details: "123 Tile Street, Design District, NY 10001",
-    link: "https://maps.google.com/?q=123+Tile+Street,+Design+District,+NY+10001"
+    details: "113, Krishi Vihar, Vardhman Vihar, Jaipur",
+    link: "https://maps.app.goo.gl/SqZyXv9FqsocMM5d6"
   }
 ];
 
@@ -40,9 +40,6 @@ const businessHours = [
   { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
   { day: "Sunday", hours: "Closed" }
 ];
-
-// WhatsApp phone number (include country code)
-const whatsappNumber = "15551234567"; // Replace with your actual WhatsApp number
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -235,7 +232,7 @@ const whatsappNumber = "15551234567"; // Replace with your actual WhatsApp numbe
             <div class="rounded-lg overflow-hidden h-80">
               <!-- Replace with your actual embed code -->
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095989785!2d-74.00425908489204!3d40.74076904331548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sNew%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1653501624896!5m2!1sen!2sus" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d444.84917230391056!2d75.73136183610684!3d26.878304999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5006c078105%3A0x920ad96a1352d62!2sKrishi%20vihar%20s%20block!5e0!3m2!1sen!2sin!4v1748260909333!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
                 style="border:0;" 
@@ -330,8 +327,10 @@ const whatsappNumber = "15551234567"; // Replace with your actual WhatsApp numbe
   document.addEventListener('DOMContentLoaded', function() {
     const whatsappButton = document.getElementById('whatsapp-button');
     const contactForm = document.getElementById('contact-form');
-    const whatsappNumber = '15551234567'; // Fix: Use actual number instead of variable reference
-    
+
+// WhatsApp phone number (include country code)
+const whatsappNumber = "919667725508"; // Replace with your actual WhatsApp number
+
     // Handle WhatsApp button click
     whatsappButton?.addEventListener('click', function() {
       const nameInput = document.getElementById('name') as HTMLInputElement;
@@ -373,9 +372,10 @@ const whatsappNumber = "15551234567"; // Replace with your actual WhatsApp numbe
       if (whatsappCheckbox.checked) {
         whatsappButton?.click();
       } else {
-        // Regular form submission - you would add AJAX submission code here
-        alert('Form submitted! In a real implementation, this would be sent to your server.');
-        contactForm.reset();
+        whatsappButton?.click();
+        // // Regular form submission - you would add AJAX submission code here
+        // alert('Form submitted! In a real implementation, this would be sent to your server.');
+        // contactForm.reset();
       }
     });
     
