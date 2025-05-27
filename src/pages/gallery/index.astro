@@ -1,0 +1,701 @@
+---
+// filepath: c:\Users\HARSH\OneDrive\Desktop\gullible-group\src\pages\gallery\index.astro
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import galleryImage1 from "../../assets/galleryImage/gallery-1.jpg"
+import galleryImage2 from "../../assets/galleryImage/gallery-2.jpg"
+import galleryImage3 from "../../assets/galleryImage/gallery-3.jpg"
+import galleryImage4 from "../../assets/galleryImage/gallery-4.jpg"
+import galleryImage5 from "../../assets/galleryImage/gallery-5.jpg"
+import galleryImage6 from "../../assets/galleryImage/gallery-6.jpg"
+import galleryImage7 from "../../assets/galleryImage/gallery-7.jpg"
+
+// SEO data
+const pageTitle = 'Gallery - Premium Tile Installations | The Tile-Art';
+const pageDescription = 'Explore our stunning gallery of premium tile installations. See how The Tile-Art transforms spaces with beautiful, high-quality tiles for homes and businesses.';
+
+// Gallery categories with images
+const galleryCategories = [
+  {
+    id: 'all',
+    name: 'All Projects',
+    description: 'Complete collection of our work'
+  },
+  {
+    id: 'kitchen',
+    name: 'Kitchen Designs',
+    description: 'Modern kitchen tile installations'
+  },
+  {
+    id: 'bathroom',
+    name: 'Bathroom Makeovers', 
+    description: 'Luxury bathroom transformations'
+  },
+  {
+    id: 'living',
+    name: 'Living Spaces',
+    description: 'Elegant living room flooring'
+  },
+  {
+    id: 'commercial',
+    name: 'Commercial Projects',
+    description: 'Professional commercial installations'
+  }
+];
+
+// Gallery items with categories
+const galleryItems = [
+  {
+    id: 1,
+    image: galleryImage1,
+    title: 'Modern Kitchen Backsplash',
+    description: 'Contemporary kitchen featuring premium ceramic tiles with elegant subway patterns',
+    category: 'kitchen',
+    location: 'Jaipur, Rajasthan',
+    year: '2024',
+    tileType: 'Ceramic Subway Tiles',
+    featured: true
+  },
+  {
+    id: 2,
+    image: galleryImage2,
+    title: 'Luxury Bathroom Suite',
+    description: 'Spa-inspired bathroom with marble-effect porcelain tiles and gold accents',
+    category: 'bathroom',
+    location: 'Delhi NCR',
+    year: '2024',
+    tileType: 'Porcelain Marble-Effect',
+    featured: true
+  },
+  {
+    id: 3,
+    image: galleryImage3,
+    title: 'Living Room Elegance',
+    description: 'Sophisticated living space with large format tiles creating seamless flooring',
+    category: 'living',
+    location: 'Mumbai, Maharashtra',
+    year: '2023',
+    tileType: 'Large Format Porcelain',
+    featured: false
+  },
+  {
+    id: 4,
+    image: galleryImage4,
+    title: 'Commercial Office Space',
+    description: 'Modern office installation with durable and stylish commercial-grade tiles',
+    category: 'commercial',
+    location: 'Bangalore, Karnataka',
+    year: '2024',
+    tileType: 'Commercial Grade Vitrified',
+    featured: true
+  },
+  {
+    id: 5,
+    image: galleryImage5,
+    title: 'Master Bathroom Retreat',
+    description: 'Luxurious master bathroom featuring natural stone-look tiles and modern fixtures',
+    category: 'bathroom',
+    location: 'Chennai, Tamil Nadu',
+    year: '2023',
+    tileType: 'Natural Stone-Look Porcelain',
+    featured: false
+  },
+  {
+    id: 6,
+    image: galleryImage6,
+    title: 'Gourmet Kitchen Design',
+    description: 'Chef-inspired kitchen with heat-resistant tiles and beautiful pattern work',
+    category: 'kitchen',
+    location: 'Hyderabad, Telangana',
+    year: '2024',
+    tileType: 'Heat-Resistant Ceramic',
+    featured: false
+  },
+  {
+    id: 7,
+    image: galleryImage7,
+    title: 'Open Plan Living Area',
+    description: 'Spacious open-plan design with consistent flooring throughout multiple zones',
+    category: 'living',
+    location: 'Pune, Maharashtra',
+    year: '2023',
+    tileType: 'Large Format Tiles',
+    featured: true
+  }
+];
+
+// Testimonials for gallery page
+const testimonials = [
+  {
+    id: 1,
+    quote: "The Tile-Art transformed our kitchen into a masterpiece. The attention to detail is incredible!",
+    author: "Priya Sharma",
+    location: "Jaipur",
+    rating: 5,
+    project: "Modern Kitchen Backsplash"
+  },
+  {
+    id: 2,
+    quote: "Professional service and stunning results. Our bathroom feels like a luxury spa now.",
+    author: "Raj Patel",
+    location: "Delhi",
+    rating: 5,
+    project: "Luxury Bathroom Suite"
+  },
+  {
+    id: 3,
+    quote: "Excellent quality tiles and flawless installation. Highly recommended for any project.",
+    author: "Anjali Mehta",
+    location: "Mumbai",
+    rating: 5,
+    project: "Living Room Elegance"
+  }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+
+<!-- Hero Section -->
+<section class="relative bg-primary-50 pt-24 pb-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-8" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a href="/" class="text-primary-600 hover:text-primary-900 text-body">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+            </svg>
+            Home
+          </a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-primary-900 text-body ml-1 md:ml-2">Gallery</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="text-center max-w-4xl mx-auto">
+      <h1 class="text-hero text-primary-900 mb-6">
+        Project Gallery
+      </h1>
+      <p class="text-lg-body text-primary-700 mb-8">
+        Discover our stunning portfolio of premium tile installations. From modern kitchens to luxury bathrooms, 
+        see how The Tile-Art transforms spaces with exceptional craftsmanship and beautiful designs.
+      </p>
+      
+      <!-- Statistics -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-xl-heading text-primary-600">500+</div>
+          <div class="text-body text-primary-700">Projects Completed</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-xl-heading text-primary-600">50+</div>
+          <div class="text-body text-primary-700">Cities Served</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-xl-heading text-primary-600">1000+</div>
+          <div class="text-body text-primary-700">Happy Customers</div>
+        </div>
+        <div class="bg-white rounded-lg p-4 shadow-sm">
+          <div class="text-xl-heading text-primary-600">15+</div>
+          <div class="text-body text-primary-700">Years Experience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects Slider -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-xl-heading mb-4">Featured Projects</h2>
+      <p class="text-lg-body text-primary-700 max-w-2xl mx-auto">
+        Explore our most exceptional installations that showcase the beauty and quality of our work.
+      </p>
+    </div>
+
+    <!-- Swiper Slider -->
+    <div class="featured-slider-container relative">
+      <div class="swiper-container overflow-hidden rounded-xl">
+        <div class="swiper-wrapper">
+          {galleryItems.filter(item => item.featured).map(item => (
+            <div class="swiper-slide">
+              <div class="relative group cursor-pointer gallery-item" data-id={item.id}>
+                <div class="aspect-w-16 aspect-h-10 overflow-hidden rounded-xl">
+                  <Image 
+                  format='avif'
+                    src={item.image}
+                    alt={item.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    width={800}
+                    height={500}
+                  />
+                </div>
+                
+                <!-- Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+                  <div class="absolute bottom-6 left-6 right-6 text-white">
+                    <h3 class="text-lg-heading mb-2">{item.title}</h3>
+                    <p class="text-body mb-3">{item.description}</p>
+                    <div class="flex items-center justify-between">
+                      <div class="text-sm-body">
+                        <div class="flex items-center mb-1">
+                          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                          </svg>
+                          {item.location}
+                        </div>
+                        <div>{item.tileType}</div>
+                      </div>
+                      <div class="bg-primary-600 px-3 py-1 rounded-full text-xs-body">
+                        View Details
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <!-- Slider Controls -->
+        <div class="swiper-pagination !bottom-4"></div>
+        <div class="swiper-button-prev !text-white !left-4"></div>
+        <div class="swiper-button-next !text-white !right-4"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filter Section -->
+<section class="py-16 bg-primary-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-xl-heading mb-4">All Projects</h2>
+      <p class="text-lg-body text-primary-700">
+        Browse our complete portfolio by category
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      {galleryCategories.map(category => (
+        <button 
+          class="filter-btn px-6 py-3 rounded-full transition-all duration-300 text-button-lg font-medium"
+          data-filter={category.id}
+        >
+          {category.name}
+        </button>
+      ))}
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+      {galleryItems.map(item => (
+        <div class={`gallery-item-card ${item.category} cursor-pointer group`} data-id={item.id}>
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="relative overflow-hidden">
+              <Image 
+              format='avif'
+                src={item.image}
+                alt={item.title}
+                class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                width={400}
+                height={300}
+              />
+              
+              <!-- Category Badge -->
+              <div class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-full text-xs-body uppercase tracking-wide">
+                {galleryCategories.find(cat => cat.id === item.category)?.name.split(' ')[0]}
+              </div>
+              
+              <!-- Year Badge -->
+              <div class="absolute top-4 right-4 bg-white bg-opacity-90 text-primary-900 px-2 py-1 rounded text-xs-body">
+                {item.year}
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-lg-heading text-primary-900 mb-2">{item.title}</h3>
+              <p class="text-body text-primary-700 mb-4">{item.description}</p>
+              
+              <div class="space-y-2 text-sm-body text-primary-600">
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                  </svg>
+                  {item.location}
+                </div>
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"></path>
+                  </svg>
+                  {item.tileType}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Customer Testimonials -->
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-xl-heading mb-4">What Our Clients Say</h2>
+      <p class="text-lg-body text-primary-700">
+        Hear from our satisfied customers about their experience with The Tile-Art
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonials.map(testimonial => (
+        <div class="bg-primary-50 p-6 rounded-xl">
+          <div class="flex mb-4">
+            {Array(testimonial.rating).fill(0).map((_, i) => (
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+              </svg>
+            ))}
+          </div>
+          <p class="text-quote text-primary-900 mb-4">"{testimonial.quote}"</p>
+          <div>
+            <div class="text-md-heading text-primary-900">{testimonial.author}</div>
+            <div class="text-body text-primary-600">{testimonial.location}</div>
+            <div class="text-sm-body text-primary-700 mt-1">Project: {testimonial.project}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 bg-primary-900 text-white">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-xl-heading mb-6">Ready to Transform Your Space?</h2>
+    <p class="text-lg-body mb-8">
+      Let us help you create beautiful spaces with our premium tile collections and expert installation services.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="/contact-us" class="bg-white text-primary-900 hover:bg-primary-100 px-8 py-4 rounded-full text-button-lg font-semibold transition-colors">
+        Get Free Consultation
+      </a>
+      <a href="/products" class="border-2 border-white text-white hover:bg-white hover:text-primary-900 px-8 py-4 rounded-full text-button-lg font-semibold transition-all">
+        View Our Products
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Modal -->
+<div id="gallery-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden items-center justify-center p-4">
+  <div class="relative max-w-4xl max-h-full">
+    <button id="close-modal" class="absolute -top-12 right-0 text-white hover:text-primary-100 transition-colors">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <div id="modal-content" class="bg-white rounded-xl overflow-hidden">
+      <!-- Content will be dynamically inserted -->
+    </div>
+  </div>
+</div>
+
+</Layout>
+
+<script>
+  // Import Swiper
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+import galleryImage1 from "../../assets/galleryImage/gallery-1.jpg"
+import galleryImage2 from "../../assets/galleryImage/gallery-2.jpg"
+import galleryImage3 from "../../assets/galleryImage/gallery-3.jpg"
+import galleryImage4 from "../../assets/galleryImage/gallery-4.jpg"
+import galleryImage5 from "../../assets/galleryImage/gallery-5.jpg"
+import galleryImage6 from "../../assets/galleryImage/gallery-6.jpg"
+import galleryImage7 from "../../assets/galleryImage/gallery-7.jpg"
+import Image from 'astro/components/Image.astro';  
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Featured Projects Slider
+    const featuredSwiper = new Swiper('.swiper-container', {
+      modules: [Navigation, Pagination, Autoplay],
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        }
+      }
+    });
+
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item-card');
+    
+    // Set initial active state
+    filterBtns[0]?.classList.add('bg-primary-600', 'text-white');
+    filterBtns.forEach(btn => {
+      if (!btn.classList.contains('bg-primary-600')) {
+        btn.classList.add('bg-white', 'text-primary-600', 'border', 'border-primary-600');
+      }
+    });
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        
+        // Update active button
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-primary-600', 'text-white');
+          b.classList.add('bg-white', 'text-primary-600', 'border', 'border-primary-600');
+        });
+        btn.classList.remove('bg-white', 'text-primary-600', 'border', 'border-primary-600');
+        btn.classList.add('bg-primary-600', 'text-white');
+        
+        // Filter items
+        galleryItems.forEach(item => {
+          if (filter === 'all' || item.classList.contains(filter)) {
+            item.style.display = 'block';
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'scale(1)';
+            }, 100);
+          } else {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+              item.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Gallery modal functionality
+    const modal = document.getElementById('gallery-modal');
+    const closeModal = document.getElementById('close-modal');
+    const modalContent = document.getElementById('modal-content');
+    const galleryItemCards = document.querySelectorAll('.gallery-item-card, .gallery-item');
+
+    const galleryData = [
+      {
+        id: 1,
+        image: galleryImage1.src,
+        title: 'Modern Kitchen Backsplash',
+        description: 'Contemporary kitchen featuring premium ceramic tiles with elegant subway patterns',
+        location: 'Jaipur, Rajasthan',
+        year: '2024',
+        tileType: 'Ceramic Subway Tiles'
+      },
+      {
+        id: 2,
+        image: galleryImage2.src,
+        title: 'Luxury Bathroom Suite',
+        description: 'Spa-inspired bathroom with marble-effect porcelain tiles and gold accents',
+        location: 'Delhi NCR',
+        year: '2024',
+        tileType: 'Porcelain Marble-Effect'
+      },
+      {
+        id: 3,
+        image: galleryImage3.src,
+        title: 'Living Room Elegance',
+        description: 'Sophisticated living space with large format tiles creating seamless flooring',
+        location: 'Mumbai, Maharashtra',
+        year: '2023',
+        tileType: 'Large Format Porcelain'
+      },
+      {
+        id: 4,
+        image: galleryImage4.src,
+        title: 'Commercial Office Space',
+        description: 'Modern office installation with durable and stylish commercial-grade tiles',
+        location: 'Bangalore, Karnataka',
+        year: '2024',
+        tileType: 'Commercial Grade Vitrified'
+      },
+      {
+        id: 5,
+        image: galleryImage5.src,
+        title: 'Master Bathroom Retreat',
+        description: 'Luxurious master bathroom featuring natural stone-look tiles and modern fixtures',
+        location: 'Chennai, Tamil Nadu',
+        year: '2023',
+        tileType: 'Natural Stone-Look Porcelain'
+      },
+      {
+        id: 6,
+        image: galleryImage6.src,
+        title: 'Gourmet Kitchen Design',
+        description: 'Chef-inspired kitchen with heat-resistant tiles and beautiful pattern work',
+        location: 'Hyderabad, Telangana',
+        year: '2024',
+        tileType: 'Heat-Resistant Ceramic'
+      },
+      {
+        id: 7,
+        image: galleryImage7.src,
+        title: 'Open Plan Living Area',
+        description: 'Spacious open-plan design with consistent flooring throughout multiple zones',
+        location: 'Pune, Maharashtra',
+        year: '2023',
+        tileType: 'Large Format Tiles'
+      },
+      // Add other gallery items here
+    ];
+
+    galleryItemCards.forEach(item => {
+      item.addEventListener('click', () => {
+        const htmlItem = item as HTMLElement;
+        const itemId = parseInt(htmlItem.dataset.id || '0');
+        const itemData = galleryData.find(data => data.id === itemId);
+        
+        if (itemData && modalContent) {
+          modalContent.innerHTML = `
+            <div class="flex flex-col md:flex-row">
+              <div class="md:w-2/3">
+                <Image src="${itemData.image}" alt="${itemData.title}" width={100} height={100} format="avif" class="w-full h-64 md:h-96 object-cover">
+              </div>
+              <div class="md:w-1/3 p-6">
+                <h3 class="text-xl-heading text-primary-900 mb-4">${itemData.title}</h3>
+                <p class="text-body text-primary-700 mb-6">${itemData.description}</p>
+                
+                <div class="space-y-3 text-sm-body">
+                  <div class="flex items-center text-primary-600">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                    </svg>
+                    ${itemData.location}
+                  </div>
+                  <div class="flex items-center text-primary-600">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                    </svg>
+                    Completed in ${itemData.year}
+                  </div>
+                  <div class="flex items-center text-primary-600">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"></path>
+                    </svg>
+                    ${itemData.tileType}
+                  </div>
+                </div>
+                
+                <div class="mt-8">
+                  <a href="/contact-us" class="block w-full bg-primary-600 hover:bg-primary-700 text-white text-center py-3 rounded-lg text-button-lg font-medium transition-colors">
+                    Get Similar Design
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    closeModal?.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    });
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  /* Aspect ratio utilities */
+  .aspect-w-16 {
+    position: relative;
+    padding-bottom: 62.5%; /* 16:10 aspect ratio */
+  }
+
+  .aspect-w-16 > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  /* Gallery item transitions */
+  .gallery-item-card {
+    transition: all 0.3s ease;
+  }
+
+  /* Swiper customization */
+  .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.5);
+    width: 12px;
+    height: 12px;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: white;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: white !important;
+  }
+
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 20px !important;
+  }
+
+  /* Modal animations */
+  #gallery-modal {
+    backdrop-filter: blur(4px);
+  }
+
+  /* Filter button animations */
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+</style>

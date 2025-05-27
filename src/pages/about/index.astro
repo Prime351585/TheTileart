@@ -11,8 +11,8 @@ import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
 const aboutSEO = await getPageSEO(GRAPH_QL_LINK, 'about', WP_USERNAME, WP_APP_PASSWORD);
 
 // Use WordPress SEO data or fallback to new SEO-optimized defaults
-const pageTitle = aboutSEO?.title || "About Us | The Tile-Art - Crafting Exceptional Spaces with Quality Tiles";
-const pageDescription = aboutSEO?.metaDescription || "Learn about The Tile-Art's mission to transform spaces with premium tiles. Discover our values of innovation, sustainability, and customer satisfaction.";
+const pageTitle = aboutSEO?.title || "About Us | The Tileart - Crafting Exceptional Spaces with Quality Tiles";
+const pageDescription = aboutSEO?.metaDescription || "Learn about The Tileart's mission to transform spaces with premium tiles. Discover our values of innovation, sustainability, and customer satisfaction.";
 
 // Core values with updated content
 const values = [
@@ -120,24 +120,49 @@ const storyMilestones = [
 ];
 ---
 
+
 <Layout title={pageTitle} description={pageDescription}>
   <!-- Hero Section -->
   <section class="relative overflow-hidden bg-primary-50">
+    
+    
     <div class="absolute inset-0 z-0">
       <Image 
         src={bannerImage} 
-        alt="The Tile-Art crafting exceptional tile designs" 
+        alt="The Tileart crafting exceptional tile designs" 
         class="w-full h-full object-cover opacity-20"
+        format='avif'
         width={1920}
         height={1080}
       />
     </div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+        <a href="/" class="text-primary-600 hover:text-primary-900 text-body transition-colors flex items-center">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+          </svg>
+          Home
+        </a>
+          </li>
+          <li>
+        <div class="flex items-center">
+          <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-primary-900 text-body ml-1 md:ml-2">About</span>
+        </div>
+          </li>
+        </ol>
+      </nav>
       <div class="max-w-4xl">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-900 mb-6">
-          About The Tile-Art
+        <h1 class="text-hero text-primary-900 mb-6">
+          About The Tileart
         </h1>
-        <p class="text-xl md:text-2xl text-primary-800 mb-8">
+        <p class="text-lg-body text-primary-800 mb-8">
           Transforming spaces into masterpieces with exceptional tiles through design, functionality, and sustainability.
         </p>
       </div>
@@ -149,14 +174,14 @@ const storyMilestones = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-6">
+          <h2 class="text-xl-heading mb-6">
             Our Mission
           </h2>
-          <p class="text-lg text-neutral-700 mb-6">
-            At The Tile-Art, our mission is simple yet powerful: to transform spaces into masterpieces with exceptional tiles. We aim to blend design, functionality, and sustainability to provide unmatched value to our customers.
+          <p class="text-lg-body text-primary-700 mb-6">
+            At The Tileart, our mission is simple yet powerful: to transform spaces into masterpieces with exceptional tiles. We aim to blend design, functionality, and sustainability to provide unmatched value to our customers.
           </p>
           <div class="bg-primary-50 p-6 rounded-lg">
-            <p class="text-lg text-primary-800 italic font-medium">
+            <p class="text-lg-body text-primary-800 italic font-medium">
               "We believe that every space has the potential to become extraordinary, and our tiles are the key to unlocking that potential."
             </p>
           </div>
@@ -167,17 +192,18 @@ const storyMilestones = [
             src={bannerImage} 
             alt="Exceptional tile designs and craftsmanship" 
             class="w-full h-full object-cover rounded-lg shadow-xl"
+            format='avif'
             width={800}
             height={600}
           />
-          <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-lg shadow-lg max-w-xs">
+          <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-lg shadow-lg max-w-xs hidden md:block">
             <div class="flex items-center space-x-2 mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
               </svg>
-              <span class="font-bold text-primary-900">Trusted by thousands</span>
+              <span class="text-md-heading text-primary-900">Trusted by thousands</span>
             </div>
-            <p class="text-neutral-600 text-sm">
+            <p class="text-body text-primary-700">
               Homeowners and professionals choose us for quality and reliability.
             </p>
           </div>
@@ -190,28 +216,28 @@ const storyMilestones = [
   <section class="py-16 md:py-24 bg-primary-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-8">
+        <h2 class="text-xl-heading mb-8">
           Who We Are
         </h2>
-        <p class="text-lg text-neutral-700 mb-6">
-          The Tile-Art was founded with a passion for redefining interiors and exteriors through exquisite tile designs. Over the years, we've grown into a trusted name in the tile industry, known for craftsmanship, innovation, and a relentless commitment to serving our customers.
+        <p class="text-lg-body text-primary-700 mb-6">
+          The Tileart was founded with a passion for redefining interiors and exteriors through exquisite tile designs. Over the years, we've grown into a trusted name in the tile industry, known for craftsmanship, innovation, and a relentless commitment to serving our customers.
         </p>
-        <p class="text-lg text-neutral-700 mb-8">
-          We specialize in creating tiles that not only enhance the beauty of your spaces but also stand the test of time. Whether you're renovating your home, building your dream kitchen, or designing a luxurious office, The Tile-Art is your partner in making it extraordinary.
+        <p class="text-lg-body text-primary-700 mb-8">
+          We specialize in creating tiles that not only enhance the beauty of your spaces but also stand the test of time. Whether you're renovating your home, building your dream kitchen, or designing a luxurious office, The Tileart is your partner in making it extraordinary.
         </p>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
           <div class="text-center">
-            <div class="text-4xl font-bold text-primary-600 mb-2">10,000+</div>
-            <div class="text-neutral-600">Happy Customers</div>
+            <div class="text-hero text-primary-600 mb-2">10,000+</div>
+            <div class="text-body text-primary-700">Happy Customers</div>
           </div>
           <div class="text-center">
-            <div class="text-4xl font-bold text-primary-600 mb-2">500+</div>
-            <div class="text-neutral-600">Unique Designs</div>
+            <div class="text-hero text-primary-600 mb-2">500+</div>
+            <div class="text-body text-primary-700">Unique Designs</div>
           </div>
           <div class="text-center">
-            <div class="text-4xl font-bold text-primary-600 mb-2">99%</div>
-            <div class="text-neutral-600">Customer Satisfaction</div>
+            <div class="text-hero text-primary-600 mb-2">99%</div>
+            <div class="text-body text-primary-700">Customer Satisfaction</div>
           </div>
         </div>
       </div>
@@ -222,10 +248,10 @@ const storyMilestones = [
   <section class="py-16 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+        <h2 class="text-xl-heading mb-4">
           Our Core Values
         </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+        <p class="text-lg-body text-primary-700 max-w-3xl mx-auto">
           The principles that guide everything we do and define who we are
         </p>
       </div>
@@ -238,8 +264,8 @@ const storyMilestones = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={value.icon} />
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-primary-900 mb-3">{value.title}</h3>
-            <p class="text-neutral-700">{value.description}</p>
+            <h3 class="text-lg-heading text-primary-900 mb-3">{value.title}</h3>
+            <p class="text-body text-primary-700">{value.description}</p>
           </div>
         ))}
       </div>
@@ -250,17 +276,17 @@ const storyMilestones = [
   <section class="py-16 md:py-24 bg-primary-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+        <h2 class="text-xl-heading mb-4">
           Our Story
         </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+        <p class="text-lg-body text-primary-700 max-w-3xl mx-auto">
           What began as a small family-owned business has blossomed into a leading tile brand loved by designers, architects, and homeowners across the country.
         </p>
       </div>
       
       <div class="relative">
         <!-- Timeline line -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary-200 hidden md:block"></div>
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary-100 hidden md:block"></div>
         
         <div class="space-y-12">
           {storyMilestones.map((milestone, index) => (
@@ -273,13 +299,13 @@ const storyMilestones = [
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <div class="text-lg font-bold text-primary-600">{milestone.year}</div>
+                <div class="text-lg-body text-primary-600 font-bold">{milestone.year}</div>
               </div>
               
               <div class="flex-1">
                 <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                  <h3 class="text-xl font-semibold text-primary-900 mb-2">{milestone.title}</h3>
-                  <p class="text-neutral-700">{milestone.description}</p>
+                  <h3 class="text-lg-heading text-primary-900 mb-2">{milestone.title}</h3>
+                  <p class="text-body text-primary-700">{milestone.description}</p>
                 </div>
               </div>
             </div>
@@ -293,11 +319,11 @@ const storyMilestones = [
   <section class="py-16 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+        <h2 class="text-xl-heading mb-4">
           Why Choose Us?
         </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-          Discover what sets The Tile-Art apart from the competition
+        <p class="text-lg-body text-primary-700 max-w-3xl mx-auto">
+          Discover what sets The Tileart apart from the competition
         </p>
       </div>
       
@@ -328,8 +354,8 @@ const storyMilestones = [
                 </svg>
               )}
             </div>
-            <h3 class="text-xl font-bold mb-3 text-primary-900">{feature.title}</h3>
-            <p class="text-neutral-700">{feature.description}</p>
+            <h3 class="text-lg-heading text-primary-900 mb-3">{feature.title}</h3>
+            <p class="text-body text-primary-700">{feature.description}</p>
           </div>
         ))}
       </div>
@@ -340,10 +366,10 @@ const storyMilestones = [
   <section class="py-16 md:py-24 bg-primary-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+        <h2 class="text-xl-heading mb-4">
           Meet the Team
         </h2>
-        <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+        <p class="text-lg-body text-primary-700 max-w-3xl mx-auto">
           Behind every stunning tile is a team of passionate designers, skilled artisans, and customer support experts. We take pride in our collaborative approach to bring your ideas to life.
         </p>
       </div>
@@ -356,14 +382,15 @@ const storyMilestones = [
                 src={member.image} 
                 alt={`${member.name} - ${member.position}`} 
                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                format='avif'
                 width={500}
                 height={500}
               />
             </div>
             <div class="p-6">
-              <h3 class="text-xl font-semibold text-primary-900 mb-1">{member.name}</h3>
-              <p class="text-primary-600 font-medium mb-4">{member.position}</p>
-              <p class="text-neutral-700">{member.bio}</p>
+              <h3 class="text-lg-heading text-primary-900 mb-1">{member.name}</h3>
+              <p class="text-body text-primary-600 font-medium mb-4">{member.position}</p>
+              <p class="text-body text-primary-700">{member.bio}</p>
             </div>
           </div>
         ))}
@@ -380,27 +407,28 @@ const storyMilestones = [
             src={bannerImage} 
             alt="Sustainable tile manufacturing and eco-friendly practices" 
             class="w-full h-full object-cover rounded-lg shadow-xl"
+            format='avif'
             width={800}
             height={600}
           />
-          <div class="absolute -top-6 -right-6 bg-green-100 p-6 rounded-lg shadow-lg max-w-xs">
+          <div class="absolute -top-6 -right-6 bg-green-100 p-6 rounded-lg shadow-lg max-w-xs hidden md:block">
             <div class="flex items-center space-x-2 mb-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
               </svg>
-              <span class="font-bold text-green-800">Eco-Friendly</span>
+              <span class="text-md-heading text-green-800">Eco-Friendly</span>
             </div>
-            <p class="text-green-700 text-sm">
+            <p class="text-body text-green-700">
               Committed to sustainable practices and materials.
             </p>
           </div>
         </div>
         
         <div>
-          <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-6">
+          <h2 class="text-xl-heading mb-6">
             Committed to Sustainability
           </h2>
-          <p class="text-lg text-neutral-700 mb-6">
+          <p class="text-lg-body text-primary-700 mb-6">
             We believe beautiful spaces should also be sustainable. From sourcing eco-friendly materials to energy-efficient production practices, we're shaping a greener future, one tile at a time.
           </p>
           <div class="space-y-4">
@@ -408,25 +436,25 @@ const storyMilestones = [
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <p class="text-neutral-700">Eco-friendly raw materials sourcing</p>
+              <p class="text-body text-primary-700">Eco-friendly raw materials sourcing</p>
             </div>
             <div class="flex items-start space-x-3">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <p class="text-neutral-700">Energy-efficient production processes</p>
+              <p class="text-body text-primary-700">Energy-efficient production processes</p>
             </div>
             <div class="flex items-start space-x-3">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <p class="text-neutral-700">Waste reduction and recycling initiatives</p>
+              <p class="text-body text-primary-700">Waste reduction and recycling initiatives</p>
             </div>
             <div class="flex items-start space-x-3">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <p class="text-neutral-700">Carbon footprint reduction programs</p>
+              <p class="text-body text-primary-700">Carbon footprint reduction programs</p>
             </div>
           </div>
         </div>
@@ -437,21 +465,21 @@ const storyMilestones = [
   <!-- CTA Section -->
   <section class="py-16 md:py-24 bg-primary-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6">
-        Join the Tile-Art Family
+      <h2 class="text-xl-heading text-white mb-6">
+        Join the Tileart Family
       </h2>
-      <p class="text-xl text-primary-100 max-w-3xl mx-auto mb-10">
-        We invite you to experience the difference with The Tile-Art. Explore our collections, find your inspiration, and transform your space with tiles that tell a story.
+      <p class="text-lg-body text-primary-100 max-w-3xl mx-auto mb-10">
+        We invite you to experience the difference with The Tileart. Explore our collections, find your inspiration, and transform your space with tiles that tell a story.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="/contact-us" class="bg-white text-primary-900 hover:bg-primary-50 px-10 py-4 rounded-full font-bold text-lg transition-colors">
+        <a href="/contact-us" class="bg-white text-primary-900 hover:bg-primary-50 px-10 py-4 rounded-full text-button-lg font-bold transition-colors">
           Contact Us Today
         </a>
-        <a href="/products" class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-4 rounded-full font-bold text-lg transition-all">
+        <a href="/products" class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-10 py-4 rounded-full text-button-lg font-bold transition-all">
           Explore Collections
         </a>
       </div>
-      <p class="text-primary-200 mt-6">
+      <p class="text-primary-100 mt-6">
         Together, let's bring your dream space to life.
       </p>
     </div>
@@ -462,6 +490,11 @@ const storyMilestones = [
   /* Smooth scrolling for anchor links */
   html {
     scroll-behavior: smooth;
+  }
+  
+  /* Prevent horizontal overflow on mobile */
+  body {
+    overflow-x: hidden;
   }
   
   /* Animation for timeline items */

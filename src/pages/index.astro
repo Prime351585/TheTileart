@@ -23,8 +23,8 @@ import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
 const homeSEO = await getPageSEO(GRAPH_QL_LINK, 'home', WP_USERNAME, WP_APP_PASSWORD);
 
 // Use WordPress SEO data or fallback to new SEO-optimized defaults
-const pageTitle = homeSEO?.title || 'Transform Your Space with Premium Tiles | The Tile-Art';
-const pageDescription = homeSEO?.metaDescription || 'Discover luxury tiles for walls, floors, kitchens, and bathrooms at The Tile-Art. Shop eco-friendly, stylish designs with free delivery and customization options.';
+const pageTitle = homeSEO?.title || 'Transform Your Space with Premium Tiles | The Tileart';
+const pageDescription = homeSEO?.metaDescription || 'Discover luxury tiles for walls, floors, kitchens, and bathrooms at The Tileart. Shop eco-friendly, stylish designs with free delivery and customization options.';
 
 // Featured top-selling products with actual content
 const topProducts = [
@@ -150,66 +150,32 @@ const features = [
 
 <!-- Hero Slider Section -->
 <section id="hero-slider" class="relative overflow-hidden bg-primary-50">
-    <div class="swiper-container h-[70vh] sm:h-[80vh] md:h-[90vh]">
+    <div class="swiper-container h-[70vh] sm:h-[80vh] md:h-[75vh]">
         <div class="swiper-wrapper">
             <!-- First slide -->
             <div class="swiper-slide relative">
-                <div class="absolute inset-0 bg-black/40 z-10"></div>
                 <Image 
+                    format='avif'
+
                     src={bannerImage1} 
                     alt="Luxury Tile Designs for Homes and Businesses" 
                     class="w-full h-full object-cover"
                     width={1920} 
                     height={1080} 
                 />
-                <div class="absolute inset-0 flex items-center justify-center z-20">
-                    <div class="text-center px-4 sm:px-8 max-w-5xl mx-auto">
-                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-bold mb-4 sm:mb-6 hero-title">
-                            Transform Your Space with Exceptional Tiles
-                        </h1>
-                        <p class="text-xl sm:text-2xl md:text-3xl text-white mb-6 sm:mb-10 hero-subtitle max-w-4xl mx-auto">
-                            Premium tiles that combine style, durability, and innovation to elevate your home or business.
-                        </p>
-                        <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 hero-buttons">
-                            <a href="/products" class="bg-white text-primary-900 hover:bg-primary-50 px-8 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-lg transition transform hover:scale-105">
-                                Browse Our Tile Collections
-                            </a>
-                            <a href="/contact-us" class="bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-lg transition transform hover:scale-105">
-                                Get a Free Quote
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
             
             <!-- Second slide -->
             <div class="swiper-slide relative">
-                <div class="absolute inset-0 bg-black/40 z-10"></div>
                 <Image 
+                    format='avif'
+
                     src={bannerImage2} 
                     alt="Premium Tile Collections for Every Space" 
                     class="w-full h-full object-cover"
                     width={1920} 
                     height={1080} 
                 />
-                <div class="absolute inset-0 flex items-center justify-center z-20">
-                    <div class="text-center px-4 sm:px-8 max-w-5xl mx-auto">
-                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-bold mb-4 sm:mb-6 hero-title">
-                            Elevate Your Design Vision
-                        </h1>
-                        <p class="text-xl sm:text-2xl md:text-3xl text-white mb-6 sm:mb-10 hero-subtitle max-w-4xl mx-auto">
-                            Discover premium tiles crafted to perfection, meeting every style and need.
-                        </p>
-                        <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 hero-buttons">
-                            <a href="/gallery" class="bg-white text-primary-900 hover:bg-primary-50 px-8 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-lg transition transform hover:scale-105">
-                                View Our Gallery
-                            </a>
-                            <a href="/about" class="bg-transparent border-2 border-white text-white hover:bg-white/20 px-8 sm:px-10 py-3 sm:py-4 rounded-full font-semibold text-lg transition transform hover:scale-105">
-                                Learn About Us
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         
@@ -257,16 +223,16 @@ const features = [
 <!-- Tile Collections Section -->
 <section class="py-10 px-4 bg-white" id="collections">
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-primary-900">
+    <div class="text-center ">
+      <h2 class="text-xl-heading mb-6 text-primary-900">
         Explore Our Tile Collections
       </h2>
-      <p class="text-xl text-neutral-600 max-w-4xl mx-auto">
-        Discover premium tiles crafted to perfection, meeting every style and need. Whether you're designing a modern bathroom, a rustic kitchen, or a luxurious office space, The Tile-Art has you covered.
+      <p class="text-lg-body text-neutral-600 max-w-4xl mx-auto">
+        Discover premium tiles crafted to perfection, meeting every style and need. Whether you're designing a modern bathroom, a rustic kitchen, or a luxurious office space, The Tileart has you covered.
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  mb-12">
       {tileCollections.map(collection => (
         <div class="group bg-primary-50 rounded-2xl p-8 text-center hover:bg-primary-100 transition-all duration-300 hover:shadow-lg">
           <div class="rounded-full bg-primary-600 w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-700 transition-colors">
@@ -293,11 +259,11 @@ const features = [
               </svg>
             )}
           </div>
-          <h3 class="text-2xl font-bold mb-4 text-primary-900">{collection.name}</h3>
-          <p class="text-neutral-600 mb-6">{collection.description}</p>
+          <h3 class="text-lg-heading mb-4 text-primary-900">{collection.name}</h3>
+          <p class="text-body text-neutral-600 mb-6">{collection.description}</p>
           <a 
             href={collection.link} 
-            class="inline-flex items-center text-primary-600 hover:text-primary-800 font-semibold transition-colors"
+            class="inline-flex items-center text-primary-100 hover:text-primary-900 font-semibold transition-colors"
           >
             Explore Collection
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -309,7 +275,7 @@ const features = [
     </div>
     
     <div class="text-center">
-      <a href="/products" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-full font-semibold text-lg transition-colors">
+      <a href="/products" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-full text-button-lg font-semibold transition-colors">
         Shop All Products
       </a>
     </div>
@@ -317,11 +283,11 @@ const features = [
 </section>
 
 <!-- Featured Top-Selling Products Section -->
-<section class="py-10 px-4 bg-primary-50" id="featured-products">
+<section class="py-10 px-10 md:px-20 bg-primary-50" id="featured-products">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-primary-900">Featured Top-Selling Products</h2>
-      <p class="text-xl text-neutral-600">Our customers love these designs! Explore our top-rated, best-selling tiles.</p>
+      <h2 class="text-xl-heading mb-6 text-primary-900">Featured Top-Selling Products</h2>
+      <p class="text-lg-body text-neutral-600">Our customers love these designs! Explore our top-rated, best-selling tiles.</p>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -329,19 +295,21 @@ const features = [
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden product-card hover:shadow-xl transition-all duration-300 group">
           <div class="relative overflow-hidden">
             <Image 
+                    format='avif'
+
               src={product.image} 
               alt={product.alt} 
               class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
               width={500}
               height={400}
             />
-            <div class="absolute top-4 right-4 bg-primary-600 text-white rounded-full py-2 px-4 font-bold text-lg">
+            <div class="absolute top-4 right-4 bg-primary-600 text-white rounded-full py-2 px-4 text-price font-bold">
               ₹{product.price.toLocaleString()}
             </div>
           </div>
           <div class="p-6">
-            <h3 class="text-2xl font-bold mb-3 text-primary-900">{product.name}</h3>
-            <p class="text-neutral-600 mb-4">{product.description}</p>
+            <h3 class="text-lg-heading mb-3 text-primary-900">{product.name}</h3>
+            <p class="text-body text-neutral-600 mb-4">{product.description}</p>
             <div class="flex items-center mb-4">
               <div class="flex text-yellow-400">
                 {Array(5).fill(0).map((_, i) => (
@@ -350,11 +318,11 @@ const features = [
                   </svg>
                 ))}
               </div>
-              <span class="text-neutral-500 ml-2">{product.rating} ({product.sold} sold)</span>
+              <span class="text-sm-body text-neutral-500 ml-2">{product.rating} ({product.sold} sold)</span>
             </div>
             <a 
               href={`/products/${product.name.toLowerCase().replace(/\s+/g, '-')}`}
-              class="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg transition-colors font-semibold text-center block"
+              class="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg transition-colors text-button font-semibold text-center block"
             >
               View Details
             </a>
@@ -364,7 +332,7 @@ const features = [
     </div>
     
     <div class="text-center">
-      <a href="/products" class="inline-block border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-10 py-4 rounded-full font-semibold text-lg transition-all">
+      <a href="/products" class="inline-block border-2 border-primary-600 text-primary-100 hover:bg-primary-600 hover:text-white px-10 py-4 rounded-full text-button-lg font-semibold transition-all">
         Explore All Products
       </a>
     </div>
@@ -375,11 +343,11 @@ const features = [
 <section class="py-10 px-4 bg-white" id="why-choose-us">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-primary-900">
-        Why Choose The Tile-Art?
+      <h2 class="text-xl-heading mb-6 text-primary-900">
+        Why Choose The Tileart?
       </h2>
-      <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
-        At The Tile-Art, we're passionate about delivering more than just tiles—we craft experiences.
+      <p class="text-lg-body text-neutral-600 max-w-3xl mx-auto">
+        At The Tileart, we're passionate about delivering more than just tiles—we craft experiences.
       </p>
     </div>
     
@@ -408,14 +376,14 @@ const features = [
               </svg>
             )}
           </div>
-          <h3 class="text-xl font-bold mb-3 text-primary-900">{feature.title}</h3>
-          <p class="text-neutral-600">{feature.description}</p>
+          <h3 class="text-md-heading mb-3 text-primary-900">{feature.title}</h3>
+          <p class="text-body text-neutral-600">{feature.description}</p>
         </div>
       ))}
     </div>
     
     <div class="text-center">
-      <a href="/about" class="inline-block border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-10 py-4 rounded-full font-semibold text-lg transition-all">
+      <a href="/about" class="inline-block border-2 border-primary-600 text-primary-100 hover:bg-primary-600 hover:text-white px-10 py-4 rounded-full text-button-lg font-semibold transition-all">
         Learn About Us
       </a>
     </div>
@@ -423,13 +391,13 @@ const features = [
 </section>
 
 <!-- Project Gallery Section -->
-<section class="py-10 px-4 bg-primary-50" id="gallery">
+<section class="md:mx-20 py-10 px-4 bg-primary-50" id="gallery">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-primary-900">
+      <h2 class="text-xl-heading mb-6 text-primary-900">
         Project Gallery
       </h2>
-      <p class="text-xl text-neutral-600">
+      <p class="text-lg-body text-neutral-600">
         Experience the magic of our tiles through real-life transformations.
       </p>
     </div>
@@ -439,6 +407,8 @@ const features = [
         <div class={`gallery-item overflow-hidden rounded-2xl shadow-lg group ${index === 0 ? 'md:col-span-2' : ''} ${index === 3 ? 'md:row-span-2' : ''}`}>
           <div class="relative overflow-hidden h-64 md:h-80">
             <Image 
+                    format='avif'
+
               src={image.src} 
               alt={image.alt} 
               class="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
@@ -446,7 +416,7 @@ const features = [
               height={600}
             />
             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <h3 class="text-white text-xl font-bold text-center px-4">{image.title}</h3>
+              <h3 class="text-white text-md-heading text-center px-4">{image.title}</h3>
             </div>
           </div>
         </div>
@@ -454,7 +424,7 @@ const features = [
     </div>
     
     <div class="text-center">
-      <a href="/gallery" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-full font-semibold text-lg transition-colors">
+      <a href="/gallery" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-full text-button-lg font-semibold transition-colors">
         View More Projects
       </a>
     </div>
@@ -465,10 +435,10 @@ const features = [
 <section class="py-10 px-4 bg-white" id="testimonials">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-primary-900">
+      <h2 class="text-xl-heading mb-6 text-primary-900">
         See What Our Customers Are Saying
       </h2>
-      <p class="text-xl text-neutral-600">
+      <p class="text-lg-body text-neutral-600">
         Hear from our satisfied customers across India.
       </p>
     </div>
@@ -486,43 +456,37 @@ const features = [
           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-300 mb-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
           </svg>
-          <p class="text-neutral-700 mb-6 text-lg italic">"{testimonial.quote}"</p>
+          <p class="text-neutral-700 mb-6 text-quote">"{testimonial.quote}"</p>
           <div>
-            <p class="font-bold text-primary-900 text-lg">{testimonial.name}</p>
-            <p class="text-primary-600">{testimonial.location}</p>
+            <p class="text-md-heading text-primary-900">{testimonial.name}</p>
+            <p class="text-body text-primary-100">{testimonial.location}</p>
           </div>
         </div>
       ))}
     </div>
-<!--     
-    <div class="text-center">
-      <a href="/reviews" class="inline-block border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-10 py-4 rounded-full font-semibold text-lg transition-all">
-        Read More Reviews
-      </a>
-    </div>
-  </div> -->
+  </div>
 </section>
 
 <!-- Limited-Time Offers Section -->
-<section class="py-10 px-4  text-black">
+<section class="py-10 px-4 text-black">
   <div class="max-w-4xl mx-auto text-center">
     <div class="mb-8">
-      <span class="inline-block bg-yellow-400 text-primary-900 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide mb-4">
+      <span class="inline-block bg-yellow-400 text-primary-900 px-4 py-2 rounded-full text-sm-heading font-bold uppercase tracking-wide mb-4">
         Limited Time Offer
       </span>
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+      <h2 class="text-xl-heading mb-6">
         HURRY! Get up to 20% OFF
       </h2>
-      <p class="text-xl mb-8">
+      <p class="text-lg-body mb-8">
         Shop now and take advantage of our exclusive deals on premium tile collections!
       </p>
     </div>
     
     <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <a href="/products" class="border-2 border-black bg-white text-primary-900 hover:bg-primary px-10 py-4 rounded-full font-bold text-lg transition-colors">
+      <a href="/products" class="border-2 border-black bg-white text-primary-900 hover:bg-primary px-10 py-4 rounded-full text-button-lg font-bold transition-colors">
         Shop the Sale
       </a>
-      <a href="/contact-us" class="border-2 border-black text-primary hover:bg-primary hover:text-primary-900 px-10 py-4 rounded-full font-bold text-lg transition-all">
+      <a href="/contact-us" class="border-2 border-black text-primary hover:bg-primary hover:text-primary-900 px-10 py-4 rounded-full text-button-lg font-bold transition-all">
         Get Quote
       </a>
     </div>
@@ -530,30 +494,30 @@ const features = [
 </section>
 
 <!-- FAQ Section -->
-<section class="py-20 px-4 bg-white">
+<section class="py-10 px-4 bg-white">
   <div class="max-w-4xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-primary-900">
+      <h2 class="text-xl-heading mb-6 text-primary-900">
         Frequently Asked Questions
       </h2>
     </div>
     
     <div class="space-y-6">
-      <div class="bg-primary-50 rounded-2xl p-8">
-        <h3 class="text-xl font-bold text-primary-900 mb-4">How do I calculate the tiles I need?</h3>
-        <p class="text-neutral-700 mb-4">Use our Tile Calculator for precise measurements and accurate estimates.</p>
-        <a href="/tile-calculator" class="text-primary-600 hover:text-primary-800 font-semibold">Use Tile Calculator →</a>
+      <div class="bg-primary-50 rounded-2xl px-8 ">
+        <h3 class="text-md-heading text-primary-900 mb-4">How do I calculate the tiles I need?</h3>
+        <p class="text-body text-neutral-700 mb-4">Use our Tile Calculator for precise measurements and accurate estimates.</p>
+        <a href="/tile-calculator" class="text-primary-100 hover:text-primary-900 text-button font-semibold">Use Tile Calculator →</a>
       </div>
       
-      <div class="bg-primary-50 rounded-2xl p-8">
-        <h3 class="text-xl font-bold text-primary-900 mb-4">Do you offer customization?</h3>
-        <p class="text-neutral-700">Yes, we create bespoke designs tailored to your unique vision. Our design team works with you to create custom patterns, colors, and finishes.</p>
+      <div class="bg-primary-50 rounded-2xl px-8 ">
+        <h3 class="text-md-heading text-primary-900 mb-4">Do you offer customization?</h3>
+        <p class="text-body text-neutral-700">Yes, we create bespoke designs tailored to your unique vision. Our design team works with you to create custom patterns, colors, and finishes.</p>
       </div>
       
-      <div class="bg-primary-50 rounded-2xl p-8">
-        <h3 class="text-xl font-bold text-primary-900 mb-4">What are the delivery costs and timelines?</h3>
-        <p class="text-neutral-700 mb-4">We offer free delivery on bulk orders. Standard delivery is within 5-7 business days across India.</p>
-        <a href="/faq" class="text-primary-600 hover:text-primary-800 font-semibold">View All FAQs →</a>
+      <div class="bg-primary-50 rounded-2xl px-8 ">
+        <h3 class="text-md-heading text-primary-900 mb-4">What are the delivery costs and timelines?</h3>
+        <p class="text-body text-neutral-700 mb-4">We offer free delivery on bulk orders. Standard delivery is within 5-7 business days across India.</p>
+        <a href="/faq" class="text-primary-100 hover:text-primary-900 text-button font-semibold">View All FAQs →</a>
       </div>
     </div>
   </div>
@@ -562,62 +526,27 @@ const features = [
 <!-- CTA Section -->
 <section class="py-20 px-4 bg-primary-900 text-white">
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-4xl md:text-5xl font-bold mb-6">
-      Elevate your space today with The Tile-Art's premium tiles.
+    <h2 class="text-3xl mb-6">
+      Elevate your space today with The Tileart's premium tiles.
     </h2>
-    <p class="text-xl mb-10">
+    <p class="text-lg-body mb-10">
       Ready to transform your space? Get started with a free consultation and personalized quote.
     </p>
     
     <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <a href="/contact-us" class="bg-white text-primary-900 hover:bg-primary-50 px-10 py-4 rounded-full font-bold text-lg transition-colors">
+      <a href="/contact-us" class="bg-white text-primary-900 hover:bg-primary-50 px-10 py-4 rounded-full text-button-lg font-bold transition-colors">
         Get a Personalized Quote
       </a>
-      <a href="/contact-us" class="border-2 border-white text-white hover:bg-white hover:text-primary-900 px-10 py-4 rounded-full font-bold text-lg transition-all">
+      <a href="/contact-us" class="border-2 border-white text-white hover:bg-white hover:text-primary-900 px-10 py-4 rounded-full text-button-lg font-bold transition-all">
         Speak to Our Design Expert
       </a>
     </div>
   </div>
 </section>
 
-<!-- Newsletter Section
-<section class="py-20 px-4 bg-primary-50">
-  <div class="max-w-3xl mx-auto text-center">
-    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-primary-900">
-      Join Our Newsletter
-    </h2>
-    <p class="text-xl text-neutral-600 mb-8">
-      Love exclusive deals and the latest design trends? Join our community today and stay ahead in style!
-    </p>
-    <div class="bg-white rounded-2xl p-8 shadow-lg">
-      <p class="text-primary-600 font-bold text-lg mb-6">
-        Sign up and get 10% OFF your first order!
-      </p>
-      <form class="flex flex-col sm:flex-row gap-4">
-        <input 
-          type="email" 
-          placeholder="Your email address" 
-          class="flex-grow px-6 py-4 text-neutral-800 rounded-full border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          required
-        />
-        <button 
-          type="submit" 
-          class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-full font-bold transition-colors"
-        >
-          Subscribe Now
-        </button>
-      </form>
-      <p class="text-xs text-neutral-500 mt-4">
-        We respect your privacy. Unsubscribe at any time.
-      </p>
-    </div>
-  </div>
-</section> -->
-
 </Layout>
 
 <style is:global>
-
   .bg-primary-50 {
     background-color: var(--primary-50);
   }

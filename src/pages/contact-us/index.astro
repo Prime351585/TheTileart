@@ -1,4 +1,5 @@
 ---
+// filepath: c:\Users\HARSH\OneDrive\Desktop\gullible-group\src\pages\contact-us\index.astro
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import contactImage from '../../assets/bannerImage/banner-2.jpg'; // Using the same banner image for consistency
@@ -40,6 +41,30 @@ const businessHours = [
   { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
   { day: "Sunday", hours: "Closed" }
 ];
+
+// FAQ data
+const faqs = [
+  {
+    question: "How long does shipping take?",
+    answer: "Shipping typically takes 3-5 business days within India. For remote locations, please allow 7-10 business days for delivery."
+  },
+  {
+    question: "Do you offer installation services?",
+    answer: "Yes, we offer professional installation services in select areas. Please contact us for availability and pricing in your region."
+  },
+  {
+    question: "Can I return tiles if I'm not satisfied?",
+    answer: "We accept returns of unused, unopened tiles within 30 days of purchase. Custom orders are non-refundable."
+  },
+  {
+    question: "Do you provide samples?",
+    answer: "Yes, we offer sample kits for most of our collections. Samples can be ordered directly from our website, and the cost of samples can be credited toward your full order."
+  },
+  {
+    question: "What is your warranty policy?",
+    answer: "We provide a comprehensive warranty on all our tiles. Manufacturing defects are covered for up to 1 year from the date of purchase."
+  }
+];
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -47,6 +72,7 @@ const businessHours = [
   <section class="relative overflow-hidden bg-primary-50">
     <div class="absolute inset-0 z-0">
       <Image 
+      format='avif'
         src={contactImage} 
         alt="Contact TileArt" 
         class="w-full h-full object-cover opacity-20"
@@ -55,11 +81,33 @@ const businessHours = [
       />
     </div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+        <a href="/" class="text-primary-600 hover:text-primary-900 text-body transition-colors flex items-center">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+          </svg>
+          Home
+        </a>
+          </li>
+          <li>
+        <div class="flex items-center">
+          <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-primary-900 text-body ml-1 md:ml-2">Contact</span>
+        </div>
+          </li>
+        </ol>
+      </nav>
+
       <div class="max-w-3xl">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-900 mb-6">
+        <h1 class="text-hero text-primary-900 mb-6">
           Get In Touch
         </h1>
-        <p class="text-xl md:text-2xl text-primary-800 mb-8">
+        <p class="text-lg-body text-primary-800 mb-8">
           We'd love to hear from you. Reach out for quotes, questions, or collaboration opportunities.
         </p>
       </div>
@@ -69,19 +117,26 @@ const businessHours = [
   <!-- Contact Info Section -->
   <section class="py-16 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-xl-heading mb-4">Contact Information</h2>
+        <p class="text-lg-body text-primary-700 max-w-2xl mx-auto">
+          Choose your preferred way to get in touch with us
+        </p>
+      </div>
+      
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {contactInfo.map(item => (
           <a 
             href={item.link} 
-            class="bg-primary-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-all group"
+            class="bg-primary-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-all group border border-primary-100"
           >
-            <div class="rounded-full bg-primary-100 w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-primary-200 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="rounded-full bg-primary-100 w-16 h-16 flex items-center justify-center mb-6 group-hover:bg-primary-600 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-700 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-primary-900 mb-2">{item.title}</h3>
-            <p class="text-gray-700">{item.details}</p>
+            <h3 class="text-lg-heading text-primary-900 mb-2">{item.title}</h3>
+            <p class="text-body text-primary-700">{item.details}</p>
           </a>
         ))}
       </div>
@@ -93,74 +148,75 @@ const businessHours = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Contact Form -->
-        <div class="bg-white p-8 rounded-xl shadow-md">
-          <h2 class="text-3xl font-bold text-primary-900 mb-6">Send us a message</h2>
-          <p class="text-gray-700 mb-8">
+        <div class="bg-white p-8 rounded-xl shadow-md border border-primary-100">
+          <h2 class="text-xl-heading mb-6">Send us a message</h2>
+          <p class="text-body text-primary-700 mb-8">
             Fill out the form below and we'll get back to you as soon as possible. You can also reach us directly via WhatsApp.
           </p>
           
           <form id="contact-form" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <label for="name" class="block text-label text-primary-900 mb-2">Name *</label>
                 <input 
                   type="text" 
                   id="name" 
                   name="name" 
                   required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"
+                  class="w-full px-4 py-3 rounded-lg border border-primary-100 focus:ring-2 focus:ring-primary-600 focus:border-primary-600 transition-all text-input"
                   placeholder="Your name"
                 />
               </div>
               <div>
-                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <label for="phone" class="block text-label text-primary-900 mb-2">Phone *</label>
                 <input 
                   type="tel" 
                   id="phone" 
                   name="phone" 
                   required
-                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"
+                  class="w-full px-4 py-3 rounded-lg border border-primary-100 focus:ring-2 focus:ring-primary-600 focus:border-primary-600 transition-all text-input"
                   placeholder="Your phone number"
                 />
               </div>
             </div>
             
             <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label for="email" class="block text-label text-primary-900 mb-2">Email *</label>
               <input 
                 type="email" 
                 id="email" 
                 name="email" 
                 required
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"
+                class="w-full px-4 py-3 rounded-lg border border-primary-100 focus:ring-2 focus:ring-primary-600 focus:border-primary-600 transition-all text-input"
                 placeholder="Your email address"
               />
             </div>
             
             <div>
-              <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <label for="subject" class="block text-label text-primary-900 mb-2">Subject *</label>
               <select 
                 id="subject" 
                 name="subject" 
                 required
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"
+                class="w-full px-4 py-3 rounded-lg border border-primary-100 focus:ring-2 focus:ring-primary-600 focus:border-primary-600 transition-all text-input"
               >
                 <option value="" disabled selected>Select a subject</option>
                 <option value="Quote Request">Quote Request</option>
                 <option value="Product Inquiry">Product Inquiry</option>
                 <option value="Installation Question">Installation Question</option>
+                <option value="Sample Request">Sample Request</option>
                 <option value="Other">Other</option>
               </select>
             </div>
             
             <div>
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <label for="message" class="block text-label text-primary-900 mb-2">Message *</label>
               <textarea 
                 id="message" 
                 name="message" 
                 rows="5" 
                 required
-                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-600 focus:border-transparent transition-all"
+                class="w-full px-4 py-3 rounded-lg border border-primary-100 focus:ring-2 focus:ring-primary-600 focus:border-primary-600 transition-all text-input"
                 placeholder="Your message..."
               ></textarea>
             </div>
@@ -170,9 +226,9 @@ const businessHours = [
                 type="checkbox" 
                 id="whatsapp-checkbox" 
                 name="whatsapp-checkbox" 
-                class="h-5 w-5 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                class="h-5 w-5 text-primary-600 border-primary-100 rounded focus:ring-primary-600"
               />
-              <label for="whatsapp-checkbox" class="ml-2 block text-sm text-gray-700">
+              <label for="whatsapp-checkbox" class="ml-2 block text-body text-primary-700">
                 I prefer to be contacted via WhatsApp
               </label>
             </div>
@@ -181,7 +237,7 @@ const businessHours = [
               <button 
                 type="submit" 
                 id="submit-form" 
-                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-button-lg font-medium rounded-lg shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600 transition-colors"
               >
                 Send Message
               </button>
@@ -189,7 +245,7 @@ const businessHours = [
               <button 
                 type="button" 
                 id="whatsapp-button" 
-                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
+                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-button-lg font-medium rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
               >
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -201,10 +257,10 @@ const businessHours = [
         </div>
         
         <!-- Hours & Map -->
-        <div class="space-y-12">
+        <div class="space-y-8">
           <!-- Business Hours -->
-          <div class="bg-white p-8 rounded-xl shadow-md">
-            <h3 class="text-2xl font-bold text-primary-900 mb-6 flex items-center">
+          <div class="bg-white p-8 rounded-xl shadow-md border border-primary-100">
+            <h3 class="text-lg-heading text-primary-900 mb-6 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -212,25 +268,24 @@ const businessHours = [
             </h3>
             <div class="space-y-3">
               {businessHours.map(item => (
-                <div class="flex justify-between pb-2 border-b border-gray-100">
-                  <span class="font-medium text-gray-700">{item.day}</span>
-                  <span class="text-primary-800">{item.hours}</span>
+                <div class="flex justify-between items-center pb-3 border-b border-primary-100 last:border-b-0">
+                  <span class="text-body font-medium text-primary-900">{item.day}</span>
+                  <span class="text-body text-primary-700">{item.hours}</span>
                 </div>
               ))}
             </div>
           </div>
           
           <!-- Map -->
-          <div class="bg-white p-8 rounded-xl shadow-md">
-            <h3 class="text-2xl font-bold text-primary-900 mb-6 flex items-center">
+          <div class="bg-white p-8 rounded-xl shadow-md border border-primary-100">
+            <h3 class="text-lg-heading text-primary-900 mb-6 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
               Find Us
             </h3>
-            <div class="rounded-lg overflow-hidden h-80">
-              <!-- Replace with your actual embed code -->
+            <div class="rounded-lg overflow-hidden h-80 border border-primary-100">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d444.84917230391056!2d75.73136183610684!3d26.878304999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5006c078105%3A0x920ad96a1352d62!2sKrishi%20vihar%20s%20block!5e0!3m2!1sen!2sin!4v1748260909333!5m2!1sen!2sin" 
                 width="100%" 
@@ -242,6 +297,46 @@ const businessHours = [
               ></iframe>
             </div>
           </div>
+
+          <!-- Quick Stats -->
+          <div class="bg-primary-900 p-8 rounded-xl shadow-md text-white">
+            <h3 class="text-lg-heading text-white mb-6">Why Choose TileArt?</h3>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-md-heading text-white">15+ Years Experience</div>
+                  <div class="text-sm-body text-primary-100">Trusted tile specialists</div>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-md-heading text-white">24/7 Support</div>
+                  <div class="text-sm-body text-primary-100">We're here when you need us</div>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-md-heading text-white">Quality Guarantee</div>
+                  <div class="text-sm-body text-primary-100">Premium tiles, guaranteed</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -251,72 +346,52 @@ const businessHours = [
   <section class="py-16 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-primary-900 mb-4">
+        <h2 class="text-xl-heading mb-4">
           Frequently Asked Questions
         </h2>
-        <p class="text-xl text-primary-800 max-w-3xl mx-auto">
-          Find quick answers to common questions
+        <p class="text-lg-body text-primary-700 max-w-3xl mx-auto">
+          Find quick answers to common questions about our tiles and services
         </p>
       </div>
       
       <div class="max-w-3xl mx-auto">
-        <div class="space-y-6">
-          <div class="bg-primary-50 rounded-lg p-6">
-            <button class="faq-toggle flex justify-between items-center w-full text-left" aria-expanded="false">
-              <h3 class="text-lg font-medium text-primary-900">How long does shipping take?</h3>
-              <svg class="h-6 w-6 text-primary-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content mt-2 hidden">
-              <p class="text-gray-700">
-                Shipping typically takes 3-5 business days within the continental US. For international orders, please allow 7-14 business days for delivery.
-              </p>
+        <div class="space-y-4">
+          {faqs.map((faq, index) => (
+            <div class="bg-primary-50 rounded-lg border border-primary-100 overflow-hidden">
+              <button class="faq-toggle flex justify-between items-center w-full text-left p-6 hover:bg-primary-100 transition-colors" aria-expanded="false">
+                <h3 class="text-md-heading text-primary-900 pr-4">{faq.question}</h3>
+                <svg class="h-6 w-6 text-primary-600 transform transition-transform duration-200 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="faq-content hidden">
+                <div class="px-6 pb-6">
+                  <p class="text-body text-primary-700 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div class="bg-primary-50 rounded-lg p-6">
-            <button class="faq-toggle flex justify-between items-center w-full text-left" aria-expanded="false">
-              <h3 class="text-lg font-medium text-primary-900">Do you offer installation services?</h3>
-              <svg class="h-6 w-6 text-primary-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content mt-2 hidden">
-              <p class="text-gray-700">
-                Yes, we offer professional installation services in select areas. Please contact us for availability and pricing in your region.
-              </p>
-            </div>
-          </div>
-          
-          <div class="bg-primary-50 rounded-lg p-6">
-            <button class="faq-toggle flex justify-between items-center w-full text-left" aria-expanded="false">
-              <h3 class="text-lg font-medium text-primary-900">Can I return tiles if I'm not satisfied?</h3>
-              <svg class="h-6 w-6 text-primary-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content mt-2 hidden">
-              <p class="text-gray-700">
-                We accept returns of unused, unopened tiles within 30 days of purchase. Custom orders are non-refundable.
-              </p>
-            </div>
-          </div>
-          
-          <div class="bg-primary-50 rounded-lg p-6">
-            <button class="faq-toggle flex justify-between items-center w-full text-left" aria-expanded="false">
-              <h3 class="text-lg font-medium text-primary-900">Do you provide samples?</h3>
-              <svg class="h-6 w-6 text-primary-600 transform transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="faq-content mt-2 hidden">
-              <p class="text-gray-700">
-                Yes, we offer sample kits for most of our collections. Samples can be ordered directly from our website, and the cost of samples can be credited toward your full order.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-primary-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-xl-heading text-white mb-6">Ready to Start Your Project?</h2>
+      <p class="text-lg-body text-primary-100 mb-8">
+        Let's bring your vision to life with our premium tile collections and expert services.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/products" class="bg-white text-primary-900 hover:bg-primary-100 px-8 py-4 rounded-full text-button-lg font-semibold transition-colors">
+          Browse Our Collection
+        </a>
+        <a href="/gallery" class="border-2 border-white text-white hover:bg-white hover:text-primary-900 px-8 py-4 rounded-full text-button-lg font-semibold transition-all">
+          View Our Work
+        </a>
       </div>
     </div>
   </section>
@@ -328,8 +403,8 @@ const businessHours = [
     const whatsappButton = document.getElementById('whatsapp-button');
     const contactForm = document.getElementById('contact-form');
 
-// WhatsApp phone number (include country code)
-const whatsappNumber = "919667725508"; // Replace with your actual WhatsApp number
+    // WhatsApp phone number (include country code)
+    const whatsappNumber = "919667725508"; // Replace with your actual WhatsApp number
 
     // Handle WhatsApp button click
     whatsappButton?.addEventListener('click', function() {
@@ -373,7 +448,7 @@ const whatsappNumber = "919667725508"; // Replace with your actual WhatsApp numb
         whatsappButton?.click();
       } else {
         whatsappButton?.click();
-        // // Regular form submission - you would add AJAX submission code here
+        // Regular form submission - you would add AJAX submission code here
         // alert('Form submitted! In a real implementation, this would be sent to your server.');
         // contactForm.reset();
       }
@@ -417,3 +492,35 @@ const whatsappNumber = "919667725508"; // Replace with your actual WhatsApp numb
     });
   });
 </script>
+
+<style>
+  /* Enhanced FAQ animations */
+  .faq-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  }
+  
+  .faq-toggle svg {
+    transition: transform 0.2s ease;
+  }
+  
+  .faq-toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  /* Form focus states */
+  input:focus, 
+  select:focus, 
+  textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(157, 122, 79, 0.1);
+  }
+  
+  /* Custom checkbox styling */
+  input[type="checkbox"]:checked {
+    background-color: var(--color-primary-600);
+    border-color: var(--color-primary-600);
+  }
+</style>

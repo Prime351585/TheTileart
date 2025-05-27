@@ -8,8 +8,8 @@ import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
 const privacySEO = await getPageSEO(GRAPH_QL_LINK, 'privacy-policy', WP_USERNAME, WP_APP_PASSWORD);
 
 // Use WordPress SEO data or fallback to SEO-optimized defaults
-const pageTitle = privacySEO?.title || 'Privacy Policy | The Tile-Art - Your Data Protection Rights';
-const pageDescription = privacySEO?.metaDescription || 'Learn how The Tile-Art collects, uses, and protects your personal information. Read our comprehensive privacy policy covering data rights, security measures, and contact information.';
+const pageTitle = privacySEO?.title || 'Privacy Policy | The Tileart - Your Data Protection Rights';
+const pageDescription = privacySEO?.metaDescription || 'Learn how The Tileart collects, uses, and protects your personal information. Read our comprehensive privacy policy covering data rights, security measures, and contact information.';
 
 // Privacy policy sections for easy navigation
 const sections = [
@@ -36,82 +36,104 @@ const currentDate = new Date().toLocaleDateString('en-US', {
 <Layout title={pageTitle} description={pageDescription}>
   <!-- Hero Section -->
   <section class="bg-primary-50 py-16 md:py-20">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class=" px-4 sm:px-6 lg:px-8 ">
+      <!-- Breadcrumb -->
+      <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+          <li class="inline-flex items-center">
+        <a href="/" class="text-primary-600 hover:text-primary-900 text-body transition-colors flex items-center">
+          <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+          </svg>
+          Home
+        </a>
+          </li>
+          <li>
+        <div class="flex items-center">
+          <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-primary-900 text-body ml-1 md:ml-2">Blog</span>
+        </div>
+          </li>
+        </ol>
+      </nav>
+
       <div class="text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-primary-900 mb-6">
+        <h1 class="text-hero text-primary-900 mb-6">
           Privacy Policy
         </h1>
-        <p class="text-xl text-primary-700 mb-4">
-          At The Tile-Art, we value your privacy and are committed to protecting your personal information.
+        <p class="text-lg-body text-primary-700 mb-4">
+          At The Tileart, we value your privacy and are committed to protecting your personal information.
         </p>
-        <div class="inline-flex items-center bg-white px-6 py-3 rounded-full shadow-sm">
+        <div class="inline-flex items-center bg-white px-6 py-3 rounded-full shadow-sm border border-primary-100">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span class="text-primary-800 font-medium">Effective Date: {currentDate}</span>
+          <span class="text-primary-800 text-feature">Effective Date: {currentDate}</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Table of Contents -->
-<section class="py-12 bg-white border-b border-primary-100">
+  <section class="py-12 bg-white border-b border-primary-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary-900 mb-6 text-center">Quick Navigation</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {sections.map((section, index) => (
-                <a 
-                    href={`#${section.id}`} 
-                    class="flex items-center p-4 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors group"
-                >
-                    <div class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-6">
-                        {index + 1}
-                    </div>
-                    <span class="text-primary-800 group-hover:text-primary-900 font-medium">{section.title}</span>
-                </a>
-            ))}
-        </div>
+      <h2 class="text-xl-heading text-center mb-6">Quick Navigation</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {sections.map((section, index) => (
+          <a 
+            href={`#${section.id}`} 
+            class="flex items-center p-4 bg-primary-50 hover:bg-primary-100 rounded-lg transition-colors group border border-primary-100"
+          >
+            <div class="flex-shrink-0 w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center text-button font-bold mr-6">
+              {index + 1}
+            </div>
+            <span class="text-primary-800 group-hover:text-primary-900 text-feature">{section.title}</span>
+          </a>
+        ))}
+      </div>
     </div>
-</section>
+  </section>
 
   <!-- Privacy Policy Content -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Introduction -->
       <div class="prose prose-lg max-w-none mb-12">
-        <p class="text-lg text-primary-700 leading-relaxed">
+        <p class="text-lg-body text-primary-700 leading-relaxed">
           This Privacy Policy explains how we collect, use, and safeguard your data when you visit our website, interact with us, or use our services. Please read it carefully, and contact us if you have any questions.
         </p>
       </div>
 
       <!-- Section 1: Information We Collect -->
       <div id="information-we-collect" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">1</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">1</span>
           Information We Collect
         </h2>
-        <div class="bg-primary-50 p-6 rounded-lg mb-6">
-          <p class="text-primary-800 font-medium mb-4">We may collect the following types of information:</p>
+        <div class="bg-primary-50 p-6 rounded-lg mb-6 border border-primary-100">
+          <p class="text-primary-800 text-feature mb-4">We may collect the following types of information:</p>
         </div>
         
         <div class="space-y-6">
-          <div class="border-l-4 border-primary-300 pl-6">
-            <h3 class="text-xl font-semibold text-primary-900 mb-3">Personal Information</h3>
-            <p class="text-primary-700">
+          <div class="border-l-4 border-primary-600 pl-6">
+            <h3 class="text-lg-heading text-primary-900 mb-3">Personal Information</h3>
+            <p class="text-body text-primary-700">
               Name, email address, phone number, address, payment details, and other information you provide when placing an order, creating an account, or contacting us.
             </p>
           </div>
           
-          <div class="border-l-4 border-primary-300 pl-6">
-            <h3 class="text-xl font-semibold text-primary-900 mb-3">Device and Usage Data</h3>
-            <p class="text-primary-700">
+          <div class="border-l-4 border-primary-600 pl-6">
+            <h3 class="text-lg-heading text-primary-900 mb-3">Device and Usage Data</h3>
+            <p class="text-body text-primary-700">
               IP address, browser type, operating system, and information about how you interact with our website (e.g., pages viewed, time spent on site).
             </p>
           </div>
           
-          <div class="border-l-4 border-primary-300 pl-6">
-            <h3 class="text-xl font-semibold text-primary-900 mb-3">Cookies and Tracking Technologies</h3>
-            <p class="text-primary-700">
+          <div class="border-l-4 border-primary-600 pl-6">
+            <h3 class="text-lg-heading text-primary-900 mb-3">Cookies and Tracking Technologies</h3>
+            <p class="text-body text-primary-700">
               Information collected using cookies, web beacons, and similar technologies to enhance your experience.
             </p>
           </div>
@@ -119,13 +141,13 @@ const currentDate = new Date().toLocaleDateString('en-US', {
       </div>
 
       <!-- Section 2: How We Use Your Information -->
-       <div id="how-we-use" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">2</span>
+      <div id="how-we-use" class="mb-12 scroll-mt-24">
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">2</span>
           How We Use Your Information
         </h2>
-        <div class="bg-primary-50 p-6 rounded-lg mb-6">
-          <p class="text-primary-800 font-medium">We use the information we collect for purposes including:</p>
+        <div class="bg-primary-50 p-6 rounded-lg mb-6 border border-primary-100">
+          <p class="text-primary-800 text-feature">We use the information we collect for purposes including:</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -137,11 +159,11 @@ const currentDate = new Date().toLocaleDateString('en-US', {
             'Improving and personalizing our website and offerings',
             'Complying with legal obligations and resolving disputes'
           ].map(use => (
-            <div class="flex items-start space-x-3 p-4 bg-white border border-primary-200 rounded-lg">
+            <div class="flex items-start space-x-3 p-4 bg-white border border-primary-100 rounded-lg shadow-sm">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span class="text-primary-700">{use}</span>
+              <span class="text-body text-primary-700">{use}</span>
             </div>
           ))}
         </div>
@@ -149,8 +171,8 @@ const currentDate = new Date().toLocaleDateString('en-US', {
 
       <!-- Section 3: How We Share Your Information -->
       <div id="how-we-share" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">3</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">3</span>
           How We Share Your Information
         </h2>
         <div class="bg-green-50 border border-green-200 p-6 rounded-lg mb-6">
@@ -158,11 +180,11 @@ const currentDate = new Date().toLocaleDateString('en-US', {
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            <p class="text-green-800 font-medium">We respect your privacy and do not sell your personal information.</p>
+            <p class="text-green-800 text-feature">We respect your privacy and do not sell your personal information.</p>
           </div>
         </div>
         
-        <p class="text-primary-700 mb-6">However, we may share data with:</p>
+        <p class="text-body text-primary-700 mb-6">However, we may share data with:</p>
         
         <div class="space-y-4">
           {[
@@ -170,9 +192,9 @@ const currentDate = new Date().toLocaleDateString('en-US', {
             { title: 'Business Transfers', desc: 'If we merge, acquire, or sell our company, your data may be transferred as part of the transaction.' },
             { title: 'Legal Authorities', desc: 'When required to comply with legal obligations or protect our rights.' }
           ].map(item => (
-            <div class="bg-white border border-primary-200 p-6 rounded-lg">
-              <h3 class="text-lg font-semibold text-primary-900 mb-2">{item.title}</h3>
-              <p class="text-primary-700">{item.desc}</p>
+            <div class="bg-white border border-primary-100 p-6 rounded-lg shadow-sm">
+              <h3 class="text-md-heading text-primary-900 mb-2">{item.title}</h3>
+              <p class="text-body text-primary-700">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -180,12 +202,12 @@ const currentDate = new Date().toLocaleDateString('en-US', {
 
       <!-- Section 4: Cookies and Similar Technologies -->
       <div id="cookies" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">4</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">4</span>
           Cookies and Similar Technologies
         </h2>
-        <div class="bg-primary-50 p-6 rounded-lg mb-6">
-          <p class="text-primary-800">We use cookies and similar technologies to enhance your browsing experience. They help us:</p>
+        <div class="bg-primary-50 p-6 rounded-lg mb-6 border border-primary-100">
+          <p class="text-primary-800 text-body">We use cookies and similar technologies to enhance your browsing experience. They help us:</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -194,7 +216,7 @@ const currentDate = new Date().toLocaleDateString('en-US', {
             { icon: 'speakerphone', text: 'Provide relevant advertisements and personalized content' },
             { icon: 'cog', text: 'Remember your preferences and improve site functionality' }
           ].map(item => (
-            <div class="text-center p-6 bg-white border border-primary-200 rounded-lg">
+            <div class="text-center p-6 bg-white border border-primary-100 rounded-lg shadow-sm">
               <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 {item.icon === 'chart-bar' && (
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -213,26 +235,26 @@ const currentDate = new Date().toLocaleDateString('en-US', {
                   </svg>
                 )}
               </div>
-              <p class="text-primary-700 text-sm">{item.text}</p>
+              <p class="text-body text-primary-700">{item.text}</p>
             </div>
           ))}
         </div>
         
         <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
-          <p class="text-yellow-800">
-            <strong>Cookie Management:</strong> You can manage cookie preferences through your browser settings. Disabling cookies may impact your website experience.
+          <p class="text-yellow-800 text-body">
+            <span class="text-feature font-semibold">Cookie Management:</span> You can manage cookie preferences through your browser settings. Disabling cookies may impact your website experience.
           </p>
         </div>
       </div>
 
       <!-- Section 5: Your Rights -->
       <div id="your-rights" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">5</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">5</span>
           Your Rights
         </h2>
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-lg mb-6">
-          <p class="text-blue-800">
+          <p class="text-blue-800 text-body">
             Depending on your location and applicable laws, you may have the following rights regarding your data:
           </p>
         </div>
@@ -246,7 +268,7 @@ const currentDate = new Date().toLocaleDateString('en-US', {
             { title: 'Data Portability', desc: 'Request data transfer to another service provider', icon: 'download' },
             { title: 'Verification', desc: 'We may require verification of your identity before processing requests', icon: 'shield-check' }
           ].map(right => (
-            <div class="bg-white border border-primary-200 p-6 rounded-lg">
+            <div class="bg-white border border-primary-100 p-6 rounded-lg shadow-sm">
               <div class="flex items-start space-x-3">
                 <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
                   {right.icon === 'eye' && (
@@ -282,25 +304,25 @@ const currentDate = new Date().toLocaleDateString('en-US', {
                   )}
                 </div>
                 <div>
-                  <h3 class="text-lg font-semibold text-primary-900 mb-2">{right.title}</h3>
-                  <p class="text-primary-700 text-sm">{right.desc}</p>
+                  <h3 class="text-md-heading text-primary-900 mb-2">{right.title}</h3>
+                  <p class="text-sm-body text-primary-700">{right.desc}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
         
-        <div class="bg-primary-50 border border-primary-200 p-6 rounded-lg">
-          <p class="text-primary-800">
-            <strong>To exercise your rights:</strong> Please contact us at <a href="mailto:privacy@tile-art.com" class="text-primary-600 hover:text-primary-800 underline">privacy@tile-art.com</a>. We may require verification of your identity before processing your request.
+        <div class="bg-primary-50 border border-primary-100 p-6 rounded-lg">
+          <p class="text-primary-800 text-body">
+            <span class="text-feature font-semibold">To exercise your rights:</span> Please contact us at <a href="mailto:privacy@tileart.com" class="text-primary-600 hover:text-primary-800 underline">privacy@tileart.com</a>. We may require verification of your identity before processing your request.
           </p>
         </div>
       </div>
 
-      <!-- Sections 6-10 (Simplified for brevity but following same pattern) -->
+      <!-- Sections 6-10 -->
       <div id="data-security" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">6</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">6</span>
           Data Security
         </h2>
         <div class="bg-green-50 border border-green-200 p-6 rounded-lg">
@@ -309,10 +331,10 @@ const currentDate = new Date().toLocaleDateString('en-US', {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
             <div>
-              <p class="text-green-800 mb-3">
+              <p class="text-green-800 text-body mb-3">
                 We take reasonable technical and organizational measures to protect your data against unauthorized access, alteration, disclosure, or destruction.
               </p>
-              <p class="text-green-700 text-sm">
+              <p class="text-green-700 text-sm-body">
                 However, no security method is 100% foolproof, and we cannot guarantee absolute data security.
               </p>
             </div>
@@ -320,21 +342,21 @@ const currentDate = new Date().toLocaleDateString('en-US', {
         </div>
       </div>
 
-     <div id="data-retention" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">7</span>
+      <div id="data-retention" class="mb-12 scroll-mt-24">
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">7</span>
           Data Retention
         </h2>
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-          <p class="text-blue-800">
+          <p class="text-blue-800 text-body">
             We retain your personal data only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, comply with legal requirements, or resolve disputes.
           </p>
         </div>
       </div>
 
       <div id="third-party" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">8</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">8</span>
           Third-Party Services
         </h2>
         <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
@@ -343,10 +365,10 @@ const currentDate = new Date().toLocaleDateString('en-US', {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
             <div>
-              <p class="text-yellow-800 mb-3">
+              <p class="text-yellow-800 text-body mb-3">
                 Our website may contain links to third-party websites or services. We are not responsible for the privacy practices or content of these third parties.
               </p>
-              <p class="text-yellow-700 text-sm">
+              <p class="text-yellow-700 text-sm-body">
                 We recommend reviewing their privacy policies before providing any personal information.
               </p>
             </div>
@@ -355,12 +377,12 @@ const currentDate = new Date().toLocaleDateString('en-US', {
       </div>
 
       <div id="updates" class="mb-12 scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">9</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">9</span>
           Updates to This Policy
         </h2>
-        <div class="bg-primary-50 border border-primary-200 p-6 rounded-lg">
-          <p class="text-primary-800">
+        <div class="bg-primary-50 border border-primary-100 p-6 rounded-lg">
+          <p class="text-primary-800 text-body">
             We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. The updated policy will be posted on this page with the "Effective Date" updated accordingly.
           </p>
         </div>
@@ -368,46 +390,46 @@ const currentDate = new Date().toLocaleDateString('en-US', {
 
       <!-- Contact Section -->
       <div id="contact" class="scroll-mt-24">
-        <h2 class="text-3xl font-bold text-primary-900 mb-6 flex items-center">
-          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mr-6">10</span>
+        <h2 class="text-xl-heading flex items-center mb-6">
+          <span class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-button-lg font-bold mr-6">10</span>
           Contact Us
         </h2>
         <div class="bg-primary-900 text-white p-8 rounded-lg">
-          <p class="text-xl mb-6">
+          <p class="text-lg-body mb-6">
             For questions or concerns about this Privacy Policy or your personal data, please contact us:
           </p>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 class="text-lg font-semibold mb-4">The Tile-Art</h3>
+              <h3 class="text-md-heading text-white mb-4">The Tileart</h3>
               <div class="space-y-3">
                 <div class="flex items-center space-x-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>India</span>
+                  <span class="text-body text-primary-100">113, Krishi Vihar, Vardhman Vihar, Jaipur</span>
                 </div>
                 <div class="flex items-center space-x-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <a href="mailto:privacy@tile-art.com" class="hover:text-primary-200 transition-colors">
-                    privacy@tile-art.com
+                  <a href="mailto:privacy@tileart.com" class="hover:text-primary-100 transition-colors text-body">
+                    privacy@tileart.com
                   </a>
                 </div>
                 <div class="flex items-center space-x-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span>+91 (Contact for phone number)</span>
+                  <span class="text-body text-primary-100">+91 9667725508</span>
                 </div>
               </div>
             </div>
             
             <div>
-              <h3 class="text-lg font-semibold mb-4">Our Commitment</h3>
-              <p class="text-primary-100">
+              <h3 class="text-md-heading text-white mb-4">Our Commitment</h3>
+              <p class="text-body text-primary-100">
                 We are committed to addressing your inquiries promptly and transparently. Your privacy and data protection are our top priorities.
               </p>
             </div>
@@ -419,7 +441,7 @@ const currentDate = new Date().toLocaleDateString('en-US', {
 
   <!-- Back to Top -->
   <div class="text-center py-8 bg-primary-50">
-    <a href="#top" class="inline-flex items-center text-primary-600 hover:text-primary-800 font-medium">
+    <a href="#top" class="inline-flex items-center text-primary-600 hover:text-primary-800 text-feature transition-colors">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
       </svg>
