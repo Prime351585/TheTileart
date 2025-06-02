@@ -11,6 +11,7 @@
     --color-secondary:#000000;
     --color-tertiary:#128e89;
   }
+
   .bg-primary-50 {
     background-color: var(--color-primary-50);
   }

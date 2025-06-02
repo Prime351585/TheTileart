@@ -8,6 +8,18 @@ import bannerImage2 from "../assets/bannerImage/banner-2.jpg"
 import tileImage1 from "../assets/tileImage/1.webp"
 import tileImage2 from "../assets/tileImage/2.webp"
 import tileImage3 from "../assets/tileImage/3.webp"
+import tileImage4 from "../assets/tileImage/4.webp"
+import tileImage5 from "../assets/tileImage/5.webp"
+import tileImage6 from "../assets/tileImage/6.webp"
+import tileImage7 from "../assets/tileImage/7.webp"
+import tileImage8 from "../assets/tileImage/8.webp"
+
+import privia from "../assets/collections/privia.webp"
+import infiniaPlus from "../assets/collections/infinia-plus.webp"
+import exteria from "../assets/collections/exteria.webp"
+import gvtPgvt from "../assets/collections/gvt-pgvt.webp"
+import evoq from "../assets/collections/evoq.webp"
+import wallTiles from "../assets/collections/wall-tiles.webp"
 
 import galleryImage1 from "../assets/galleryImage/gallery-1.jpg"
 import galleryImage2 from "../assets/galleryImage/gallery-2.jpg"
@@ -30,62 +42,99 @@ const pageDescription = homeSEO?.metaDescription || 'Discover luxury tiles for w
 const topProducts = [
   { 
     id: 1, 
-    name: 'JRM Vinyl Marble', 
-    price: 999, 
+    name: 'Lux Marble', 
     image: tileImage1, 
-    rating: 4.8, 
-    sold: 152,
-    description: 'Elegance with low maintenance',
-    alt: 'JRM Vinyl Marble Best-Selling Tile'
+    alt: 'Lux Marble Best-Selling Tile'
   },
   { 
     id: 2, 
-    name: 'Jig-Tik Designer Tile', 
-    price: 12999, 
+    name: 'Vintage Wood', 
     image: tileImage2, 
-    rating: 4.9, 
-    sold: 98,
-    description: 'Artistic and bold, ideal for standout spaces',
-    alt: 'Jig-Tik Designer Artistic Tile Best Seller'
+    alt: 'Vintage Wood Artistic Tile Best Seller'
   },
   { 
     id: 3, 
-    name: 'Black Tail Premium Tile', 
-    price: 8000, 
+    name: 'Urban Slate', 
     image: tileImage3, 
-    rating: 4.7, 
-    sold: 201,
-    description: 'Modern and sleek for sophisticated interiors',
-    alt: 'Black Tail Premium Stylish Tile'
+    alt: 'Urban Slate Stylish Tile'
+  },
+  { 
+    id: 4, 
+    name: 'Eternal White', 
+    image: tileImage4, 
+    alt: 'Eternal White Best Selling Tile'
+  },
+  { 
+    id: 5, 
+    name: 'Textured Terrazzo', 
+    image: tileImage5, 
+    alt: 'Textured Terrazzo Stylish Tile'
+  },
+  { 
+    id: 6, 
+    name: 'Refined Rustic', 
+    image: tileImage6, 
+    alt: 'Refined Rustic Stylish Tile'
+  },
+  { 
+    id: 7, 
+    name: 'Mesmerizing Morocco', 
+    image: tileImage7, 
+    alt: 'Mesmerizing Morocco Stylish Tile'
+  },
+  { 
+    id: 8, 
+    name: 'Timeless Finestone', 
+    image: tileImage8, 
+    alt: 'Timeless Finestone Stylish Tile'
   },
 ];
 
 // Tile collections data
 const tileCollections = [
   {
-    name: 'Wall Tiles',
-    description: 'Add elegance and protection to your walls.',
+    id: 'wall-tiles',
+    name: 'Wall Tiles Collection',
+    description: 'Discover our premium wall tiles perfect for bathrooms, kitchens, and feature walls. From classic subway tiles to modern geometric patterns.',
+    image: wallTiles,
     icon: 'wall',
-    link: '/products?category=wall-tiles'
   },
   {
-    name: 'Floor Tiles',
-    description: 'Durable and stylish options for every room.',
+    id: 'privia',
+    name: 'Privia Collection',
+    description: 'Elegant and sophisticated tiles that bring luxury to any space. The Privia collection features premium finishes and exceptional craftsmanship.',
+    image: privia,
     icon: 'floor',
-    link: '/products?category=floor-tiles'
   },
   {
-    name: 'Kitchen Tiles',
-    description: 'Make your kitchen the heart of your home with stunning designs.',
+    id: 'infinia-plus',
+    name: 'Infinia Plus Collection',
+    description: 'Advanced ceramic technology meets stunning design. Infinia Plus offers superior performance with cutting-edge aesthetics.',
+    image: infiniaPlus,
     icon: 'kitchen',
-    link: '/products?category=kitchen-tiles'
   },
   {
-    name: 'Bathroom Tiles',
-    description: 'Transform your bathroom into a serene retreat.',
+    id: 'exteria',
+    name: 'Exteria Collection',
+    description: 'Outdoor and high-traffic area specialists. Exteria collection provides exceptional strength and weather resistance.',
+    image: exteria,
     icon: 'bathroom',
-    link: '/products?category=bathroom-tiles'
+  },
+  {
+    id: 'gvt-pgvt',
+    name: 'GVT/PGVT Collection',
+    description: 'Glazed Vitrified Tiles and Polished Glazed Vitrified Tiles offering superior strength, low water absorption, and stunning finishes.',
+    image: gvtPgvt,
+    icon: 'wall',
+  },
+  {
+    id: 'evoq',
+    name: 'EVOQ Collection',
+    description: 'The pinnacle of tile innovation. EVOQ collection represents the future of tile technology with revolutionary designs and performance.',
+    image: evoq,
+    icon: 'floor',
   }
+
 ];
 
 // Gallery images with proper descriptions
@@ -150,7 +199,7 @@ const features = [
 
 <!-- Hero Slider Section -->
 <section id="hero-slider" class="relative overflow-hidden bg-primary-50">
-    <div class="swiper-container h-[70vh] sm:h-[80vh] md:h-[75vh]">
+    <div class="swiper-container h-[50vh] sm:h-[80vh] md:h-[75vh]">
         <div class="swiper-wrapper">
             <!-- First slide -->
             <div class="swiper-slide relative">
@@ -227,63 +276,242 @@ const features = [
       <h2 class="text-xl-heading mb-6 text-primary-900">
         Explore Our Tile Collections
       </h2>
-      <p class="text-lg-body text-neutral-600 max-w-4xl mx-auto">
+      <p class="text-lg-body text-neutral-600 max-w-4xl mx-auto pb-10">
         Discover premium tiles crafted to perfection, meeting every style and need. Whether you're designing a modern bathroom, a rustic kitchen, or a luxurious office space, The Tileart has you covered.
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-7">
       {tileCollections.map(collection => (
-        <div class="group bg-primary-50 rounded-2xl p-8 text-center hover:bg-primary-100 transition-all duration-300 hover:shadow-lg">
-          <div class="rounded-full bg-primary-600 w-20 h-20 flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-700 transition-colors">
-            {collection.icon === 'wall' && (
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-            )}
-            {collection.icon === 'floor' && (
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v10" />
-              </svg>
-            )}
-            {collection.icon === 'kitchen' && (
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21l4-7 4 7" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l6-6 6 6" />
-              </svg>
-            )}
-            {collection.icon === 'bathroom' && (
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-              </svg>
-            )}
+        <div class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+          <div class="relative overflow-hidden">
+            <Image 
+              format='avif'
+              src={collection.image} 
+              alt={collection.name} 
+              class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              width={400}
+              height={256}
+            />
           </div>
-          <h3 class="text-lg-heading mb-4 text-primary-900">{collection.name}</h3>
-          <p class="text-body text-neutral-600 mb-6">{collection.description}</p>
-          <a 
-            href={collection.link} 
-            class="inline-flex items-center text-primary-100 hover:text-primary-900 font-semibold transition-colors"
-          >
-            Explore Collection
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
+          <div class="p-6">
+            <h3 class="text-lg-heading mb-4 text-primary-900">{collection.name}</h3>
+            <p class="text-body text-neutral-600">{collection.description}</p>
+          </div>
         </div>
       ))}
     </div>
-    
-    <div class="text-center">
-      <a href="/products" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-full text-button-lg font-semibold transition-colors">
-        Shop All Products
+
+    <div class="text-center -mb-10">
+      <a href="/catalogue" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-10 py-4 rounded-full text-button-lg font-semibold transition-colors">
+        View Our Catalogue
       </a>
     </div>
-  </div>
+  
 </section>
+<!-- Featured Products Seamless Slider Section -->
+<section class="py-16 bg-gradient-to-r from-primary-50 to-primary-100 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-xl-heading mb-6 text-primary-900">
+        Our Premium Tile Collection
+      </h2>
+      <p class="text-lg-body text-neutral-600">
+        Discover endless possibilities with our stunning tile designs
+      </p>
+    </div>
+    
+    <!-- Native Seamless Slider -->
+    <div class="seamless-slider-container">
+      <div class="seamless-slider">
+      {[...topProducts, ...topProducts, ...topProducts].map((product, index) => (
+        <div class="slide ">
+        <div class="w-auto h-80 bg-white  rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 mx-auto my-4">
+          <div class="relative overflow-hidden">
+          <Image 
+            format='avif'
+            src={product.image} 
+            alt={product.alt} 
+            class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+            width={384}
+            height={288}
+          />
+          </div>
+          <div class="p-6 text-center">
+          <h3 class="text-xl font-semibold text-primary-900 mb-2">{product.name}</h3>
+          </div>
+        </div>
+        </div>
+      ))}
+      </div>
+    </div>
+    </div>
+  </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.querySelector('.seamless-slider');
+    const slides = document.querySelectorAll('.slide');
+    
+    if (!slider || slides.length === 0) return;
+    
+    // Clone slides for seamless loop
+    const slideWidth = 320 + 24; // slide width + gap
+    let currentTranslate = 0;
+    let animationId;
+    let isAnimating = false;
+    
+    // Clone first few slides and append to end
+    const clonesToAdd = Math.ceil(window.innerWidth / slideWidth) + 2;
+    for (let i = 0; i < clonesToAdd; i++) {
+      const clone = slides[i % slides.length].cloneNode(true);
+      clone.classList.add('cloned');
+      slider.appendChild(clone);
+    }
+    
+    function animate() {
+      if (!isAnimating) return;
+      
+      currentTranslate -= 0.5; // Adjust speed here
+      
+      // Reset position when we've moved past original slides
+      if (Math.abs(currentTranslate) >= slides.length * slideWidth) {
+        currentTranslate = 0;
+      }
+      
+      slider.style.transform = `translateX(${currentTranslate}px)`;
+      animationId = requestAnimationFrame(animate);
+    }
+    
+    function startAnimation() {
+      isAnimating = true;
+      animate();
+    }
+    
+    function stopAnimation() {
+      isAnimating = false;
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    }
+    
+    // Start animation
+    startAnimation();
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      stopAnimation();
+      setTimeout(startAnimation, 100);
+    });
+  });
+</script>
+
+<style>
+  .seamless-slider-container {
+    overflow: hidden;
+    padding: 0 20px;
+    width: 100%;
+  }
+  
+  .seamless-slider {
+    display: flex;
+    gap: 24px;
+    will-change: transform;
+    transition: none;
+  }
+  
+  .slide {
+    flex-shrink: 0;
+    width: 320px;
+    height: auto;
+  }
+  
+  .slide.cloned {
+    opacity: 1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .seamless-slider-container {
+      padding: 0 10px;
+    }
+    
+    .seamless-slider {
+      gap: 16px;
+    }
+    
+    .slide {
+      width: 280px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .slide {
+      width: 260px;
+    }
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Autoplay } from 'swiper/modules';
+  import 'swiper/css';
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const productSwiper = new Swiper('.product-slider', {
+      modules: [Autoplay],
+      slidesPerView: 'auto',
+      spaceBetween: 24,
+      loop: true,
+      centeredSlides: true,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      speed: 3000,
+      allowTouchMove: false,
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          centeredSlides: true
+        },
+        640: {
+          slidesPerView: 2,
+          centeredSlides: true
+        },
+        1024: {
+          slidesPerView: 3,
+          centeredSlides: true
+        },
+        1280: {
+          slidesPerView: 4,
+          centeredSlides: false
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  .product-slider {
+    overflow: visible;
+    padding: 0 20px;
+  }
+  
+  .product-slider .swiper-slide {
+    width: 320px;
+    height: auto;
+  }
+  
+  .product-slider .swiper-wrapper {
+    transition-timing-function: linear;
+  }
+</style>
+
 
 <!-- Featured Top-Selling Products Section -->
-<section class="py-10 px-10 md:px-20 bg-primary-50" id="featured-products">
+<!-- <section class="py-10 px-10 md:px-20 bg-primary-50" id="featured-products">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
       <h2 class="text-xl-heading mb-6 text-primary-900">Featured Top-Selling Products</h2>
@@ -337,7 +565,7 @@ const features = [
       </a>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- Why Choose Us Section -->
 <section class="py-10 px-4 bg-white" id="why-choose-us">
