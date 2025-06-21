@@ -2,12 +2,12 @@
 
  /* Tailwind custom colors */
   :root {
-    --color-primary-50: #f0e8db;
-    --color-primary-100: #d9c7b0;
-    --color-primary-600: #9d7a4f;
-    --color-primary-700: #8a6940;
-    --color-primary-800: #765832;
-    --color-primary-900: #634723;
+    --color-primary-50: #e6f5f4;
+    --color-primary-100: #b3e5e1;
+    --color-primary-600: #128e89;
+    --color-primary-700: #0f7a76;
+    --color-primary-800: #0d6662;
+    --color-primary-900: #0a524f;
     --color-secondary:#000000;
     --color-tertiary:#128e89;
   }

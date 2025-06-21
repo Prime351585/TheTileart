@@ -2,8 +2,16 @@
 // filepath: c:\Users\HARSH\OneDrive\Desktop\gullible-group\src\pages\index.astro
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import bannerImage1 from "../assets/bannerImage/banner-1.jpg"
-import bannerImage2 from "../assets/bannerImage/banner-2.jpg"
+import bannerImage1 from "../assets/bannerImage/banner-1.webp"
+import bannerImage2 from "../assets/bannerImage/banner-2.webp"
+import bannerImage3 from "../assets/bannerImage/banner-3.webp"
+import bannerImage4 from "../assets/bannerImage/banner-4.webp"
+import bannerImage5 from "../assets/bannerImage/banner-5.webp"
+
+import alfen from "../assets/partners/alfen.png"
+import ampleline from "../assets/partners/ampleline.png"
+import sunheart from "../assets/partners/sunheart.png"
+
 
 import tileImage1 from "../assets/tileImage/1.webp"
 import tileImage2 from "../assets/tileImage/2.webp"
@@ -220,6 +228,39 @@ const features = [
                     format='avif'
 
                     src={bannerImage2} 
+                    alt="Premium Tile Collections for Every Space" 
+                    class="w-full h-full object-cover"
+                    width={1920} 
+                    height={1080} 
+                />
+            </div>
+            <div class="swiper-slide relative">
+                <Image 
+                    format='avif'
+
+                    src={bannerImage3} 
+                    alt="Premium Tile Collections for Every Space" 
+                    class="w-full h-full object-cover"
+                    width={1920} 
+                    height={1080} 
+                />
+            </div>
+            <div class="swiper-slide relative">
+                <Image 
+                    format='avif'
+
+                    src={bannerImage4} 
+                    alt="Premium Tile Collections for Every Space" 
+                    class="w-full h-full object-cover"
+                    width={1920} 
+                    height={1080} 
+                />
+            </div>
+            <div class="swiper-slide relative">
+                <Image 
+                    format='avif'
+
+                    src={bannerImage5} 
                     alt="Premium Tile Collections for Every Space" 
                     class="w-full h-full object-cover"
                     width={1920} 
@@ -509,7 +550,6 @@ const features = [
   }
 </style>
 
-
 <!-- Featured Top-Selling Products Section -->
 <!-- <section class="py-10 px-10 md:px-20 bg-primary-50" id="featured-products">
   <div class="max-w-7xl mx-auto">
@@ -574,10 +614,12 @@ const features = [
       <h2 class="text-xl-heading mb-6 text-primary-900">
         Why Choose The Tileart?
       </h2>
+      
       <p class="text-lg-body text-neutral-600 max-w-3xl mx-auto">
         At The Tileart, we're passionate about delivering more than just tiles—we craft experiences.
       </p>
     </div>
+    
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
       {features.map(feature => (
@@ -610,14 +652,176 @@ const features = [
       ))}
     </div>
     
-    <div class="text-center">
+<!-- Logo Slider Section -->
+<section class="py-12 bg-white border-t border-b border-neutral-200">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-8">
+      <h2 class="text-lg-heading text-neutral-600 mb-2">Trusted By Leading Brands</h2>
+    </div>
+    
+    <!-- Logo Slider Container -->
+    <div class="logo-slider-container">
+      <div class="logo-slider">
+        <!-- Original logos -->
+        <div class="logo-slide">
+          <div class="logo-item">
+            <Image width={100} height={100} format='avif' src={alfen} alt="Partner Brand 1" class="h-12 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          </div>
+        </div>
+        <div class="logo-slide">
+          <div class="logo-item">
+            <Image width={100} height={100} format='avif' src={ampleline} alt="Partner Brand 2" class="h-12 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          </div>
+        </div>
+        <div class="logo-slide">
+          <div class="logo-item">
+            <Image width={100} height={100} format="avif" src={sunheart} alt="Partner Brand 3" class="h-12 object-contain opacity-60 hover:opacity-100 transition-opacity" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoSlider = document.querySelector('.logo-slider');
+    const logoSlides = document.querySelectorAll('.logo-slide');
+    
+    if (!logoSlider || logoSlides.length === 0) return;
+    
+    // Clone slides multiple times for seamless loop
+    const slideWidth = 200; // Approximate width including gap
+    const clonesNeeded = Math.ceil((window.innerWidth / slideWidth) * 2) + logoSlides.length;
+    
+    for (let i = 0; i < clonesNeeded; i++) {
+      const clone = logoSlides[i % logoSlides.length].cloneNode(true);
+      clone.classList.add('cloned');
+      logoSlider.appendChild(clone);
+    }
+    
+    let currentTranslate = 0;
+    let animationId;
+    let isAnimating = false;
+    
+    function animateLogos() {
+      if (!isAnimating) return;
+      
+      currentTranslate -= 1; // Slow, smooth movement
+      
+      // Reset position when we've moved past original slides
+      if (Math.abs(currentTranslate) >= logoSlides.length * slideWidth) {
+        currentTranslate = 0;
+      }
+      
+      logoSlider.style.transform = `translateX(${currentTranslate}px)`;
+      animationId = requestAnimationFrame(animateLogos);
+    }
+    
+    function startLogoAnimation() {
+      isAnimating = true;
+      animateLogos();
+    }
+    
+    function stopLogoAnimation() {
+      isAnimating = false;
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    }
+    
+    // Pause on hover
+    logoSlider.addEventListener('mouseenter', stopLogoAnimation);
+    logoSlider.addEventListener('mouseleave', startLogoAnimation);
+    
+    // Start animation
+    startLogoAnimation();
+    
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        stopLogoAnimation();
+        setTimeout(startLogoAnimation, 100);
+      }, 100);
+    });
+  });
+</script>
+
+<style>
+  .logo-slider-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 0 20px;
+  }
+  
+  .logo-slider {
+    display: flex;
+    gap: 60px;
+    will-change: transform;
+    transition: none;
+    align-items: center;
+  }
+  
+  .logo-slide {
+    flex-shrink: 0;
+    width: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+  }
+  
+  .logo-slide.cloned {
+    opacity: 1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .logo-slider {
+      gap: 40px;
+    }
+    
+    .logo-slide {
+      width: 120px;
+    }
+    
+    .logo-item img {
+      height: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo-slider {
+      gap: 30px;
+    }
+    
+    .logo-slide {
+      width: 100px;
+    }
+    
+    .logo-item img {
+      height: 8px;
+    }
+  }
+</style>
+
+    <div class="text-center mt-10">
       <a href="/about" class="inline-block border-2 border-primary-600 text-primary-100 hover:bg-primary-600 hover:text-white px-10 py-4 rounded-full text-button-lg font-semibold transition-all">
         Learn About Us
       </a>
     </div>
   </div>
 </section>
-
+{/*
 <!-- Project Gallery Section -->
 <section class="md:mx-20 py-10 px-4 bg-primary-50" id="gallery">
   <div class="max-w-7xl mx-auto">
@@ -767,6 +971,33 @@ const features = [
       </a>
       <a href="/contact-us" class="border-2 border-white text-white hover:bg-white hover:text-primary-900 px-10 py-4 rounded-full text-button-lg font-bold transition-all">
         Speak to Our Design Expert
+      </a>
+    </div>
+  </div>
+</section>
+ */}
+
+<!-- CTA Section -->
+<section class="py-20 px-4 bg-primary-900 text-white">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl mb-6">
+      Elevate Your Space With TileArt's Premium Collection
+    </h2>
+    <p class="text-lg-body mb-10">
+      Ready to transform your space? Connect with us directly for personalized assistance and expert guidance.
+    </p>
+    
+    <div class="flex justify-center">
+      <a 
+        href="https://wa.me/919667725508" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="bg-green-500 hover:bg-green-600 text-white px-10 py-4 rounded-full text-button-lg font-bold transition-colors flex items-center gap-3"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+        </svg>
+        Contact Us on WhatsApp
       </a>
     </div>
   </div>

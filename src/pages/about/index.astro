@@ -2,7 +2,8 @@
 // filepath: c:\Users\HARSH\OneDrive\Desktop\gullible-group\src\pages\about\index.astro
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import bannerImage from '../../assets/bannerImage/banner-2.jpg';
+import bannerImage from '../../assets/bannerImage/banner-2.webp';
+import bannerImage1 from "../../assets/bannerImage/banner-5.webp"
 
 import { getPageSEO } from '../../../graphql/pageSeo';
 import { WP_USERNAME, WP_APP_PASSWORD, GRAPH_QL_LINK } from "astro:env/server";
@@ -128,7 +129,7 @@ const storyMilestones = [
     
     <div class="absolute inset-0 z-0">
       <Image 
-        src={bannerImage} 
+        src={bannerImage1} 
         alt="The Tileart crafting exceptional tile designs" 
         class="w-full h-full object-cover opacity-20"
         format='avif'
@@ -361,6 +362,9 @@ const storyMilestones = [
       </div>
     </div>
   </section>
+{/*
+
+
 
   <!-- Team Section -->
   <section class="py-16 md:py-24 bg-primary-50">
@@ -461,7 +465,8 @@ const storyMilestones = [
       </div>
     </div>
   </section>
-
+ */}
+ 
   <!-- CTA Section -->
   <section class="py-16 md:py-24 bg-primary-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
