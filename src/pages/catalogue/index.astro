@@ -27,7 +27,7 @@ const collections = [
     name: 'Wall Tiles Collection',
     description: 'Discover our premium wall tiles perfect for bathrooms, kitchens, and feature walls. From classic subway tiles to modern geometric patterns.',
     image: wallTilesImage,
-    pdfUrl: '/catalogues/Tileart- Creanza Wall Tiles (300 x 600 mm).pdf',
+    pdfUrl: 'https://mediumturquoise-rail-447857.hostingersite.com/wordpress/wp-content/uploads/2025/06/Tileart-Creanza-Wall-Tiles-300-x-600-mm-1.pdf',
     features: [
       'Wide range of colors and textures',
       'Easy to clean and maintain',
@@ -41,7 +41,7 @@ const collections = [
     name: 'Privia Collection',
     description: 'Elegant and sophisticated tiles that bring luxury to any space. The Privia collection features premium finishes and exceptional craftsmanship.',
     image: priviaImage,
-    pdfUrl: '/catalogues/Creanza (60 x 120 cm).pdf',
+    pdfUrl: 'https://mediumturquoise-rail-447857.hostingersite.com/wordpress/wp-content/uploads/2025/06/Tileart-x-Privia-Creanza-60-x-120-cm-1.pdf',
     features: [
       'Premium luxury finishes',
       'Exceptional durability',
@@ -55,7 +55,7 @@ const collections = [
     name: 'Infinia Plus Collection',
     description: 'Advanced ceramic technology meets stunning design. Infinia Plus offers superior performance with cutting-edge aesthetics.',
     image: infiniaImage,
-    pdfUrl: '/catalogues/Tileart x Creanza- Infinia Plus (Slabs) (1).pdf',
+    pdfUrl: 'https://mediumturquoise-rail-447857.hostingersite.com/wordpress/wp-content/uploads/2025/06/Tileart-x-Creanza-Infinia-Plus-Slabs-1.pdf',
     features: [
       'Advanced ceramic technology',
       'Superior scratch resistance',
@@ -69,7 +69,7 @@ const collections = [
     name: 'Exteria Collection',
     description: 'Outdoor and high-traffic area specialists. Exteria collection provides exceptional strength and weather resistance.',
     image: exteriaImage,
-    pdfUrl: '/catalogues/Tileart x Creanza- Exteria Collection (1).pdf',
+    pdfUrl: 'https://mediumturquoise-rail-447857.hostingersite.com/wordpress/wp-content/uploads/2025/06/Tileart-x-Creanza-Exteria-Collection-1.pdf',
     features: [
       'Weather-resistant properties',
       'Anti-slip surface options',
@@ -83,7 +83,7 @@ const collections = [
     name: 'GVT/PGVT Collection',
     description: 'Glazed Vitrified Tiles and Polished Glazed Vitrified Tiles offering superior strength, low water absorption, and stunning finishes.',
     image: gvtImage,
-    pdfUrl: '/catalogues/Tileart x Creanza GVT, PGVT Collection (1).pdf',
+    pdfUrl: 'https://mediumturquoise-rail-447857.hostingersite.com/wordpress/wp-content/uploads/2025/06/Tileart-x-Creanza-GVT-PGVT-Collection-1.pdf',
     features: [
       'Low water absorption',
       'High strength and durability',
@@ -97,7 +97,7 @@ const collections = [
     name: 'EVOQ Collection',
     description: 'The pinnacle of tile innovation. EVOQ collection represents the future of tile technology with revolutionary designs and performance.',
     image: evoqImage,
-    pdfUrl: '/catalogues/Tileart x Creanza EVOQ Collection (2).pdf',
+    pdfUrl: 'https://mediumturquoise-rail-447857.hostingersite.com/wordpress/wp-content/uploads/2025/06/Tileart-x-Creanza-EVOQ-Collection-2.pdf',
     features: [
       'Revolutionary tile technology',
       'Futuristic designs',
@@ -163,7 +163,7 @@ const collections = [
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {collections.map((collection, index) => (
-          <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group border border-primary-100">
+          <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group border border-primary-100" id={collection.id}>
             <!-- Collection Image -->
             <div class="relative h-64 overflow-hidden">
               <Image 
