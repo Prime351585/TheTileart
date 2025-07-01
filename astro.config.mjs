@@ -23,6 +23,6 @@ export default defineConfig({
       GRAPH_QL_LINK: envField.string({ context: "server", access: "secret" })
     }
   },
-
+  site:"https://thetileart.com/",
   integrations: [sitemap()]
 });
