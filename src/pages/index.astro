@@ -11,7 +11,9 @@ import bannerImage5 from "../assets/bannerImage/banner-5.webp"
 import alfen from "../assets/partners/alfen.png"
 import ampleline from "../assets/partners/ampleline.png"
 import sunheart from "../assets/partners/sunheart.png"
-
+import decor from "../assets/partners/decor.png"
+import seron from "../assets/partners/seron.png"
+import creanza from "../assets/partners/creanza.png"
 
 import tileImage1 from "../assets/tileImage/1.webp"
 import tileImage2 from "../assets/tileImage/2.webp"
@@ -106,6 +108,7 @@ const tileCollections = [
     description: 'Discover our premium wall tiles perfect for bathrooms, kitchens, and feature walls. From classic subway tiles to modern geometric patterns.',
     image: wallTiles,
     icon: 'wall',
+    link: `\catalogue#wall-tiles`
   },
   {
     id: 'privia',
@@ -113,6 +116,8 @@ const tileCollections = [
     description: 'Elegant and sophisticated tiles that bring luxury to any space. The Privia collection features premium finishes and exceptional craftsmanship.',
     image: privia,
     icon: 'floor',
+    link: `\catalogue#privia`
+
   },
   {
     id: 'infinia-plus',
@@ -120,6 +125,8 @@ const tileCollections = [
     description: 'Advanced ceramic technology meets stunning design. Infinia Plus offers superior performance with cutting-edge aesthetics.',
     image: infiniaPlus,
     icon: 'kitchen',
+    link: `\catalogue#infinia-plus`
+
   },
   {
     id: 'exteria',
@@ -127,6 +134,8 @@ const tileCollections = [
     description: 'Outdoor and high-traffic area specialists. Exteria collection provides exceptional strength and weather resistance.',
     image: exteria,
     icon: 'bathroom',
+    link: `\catalogue#exteria`
+
   },
   {
     id: 'gvt-pgvt',
@@ -134,6 +143,8 @@ const tileCollections = [
     description: 'Glazed Vitrified Tiles and Polished Glazed Vitrified Tiles offering superior strength, low water absorption, and stunning finishes.',
     image: gvtPgvt,
     icon: 'wall',
+    link: `\catalogue#gvt-pgvt`
+
   },
   {
     id: 'evoq',
@@ -141,6 +152,8 @@ const tileCollections = [
     description: 'The pinnacle of tile innovation. EVOQ collection represents the future of tile technology with revolutionary designs and performance.',
     image: evoq,
     icon: 'floor',
+    link: `\catalogue#evoq`
+
   }
 
 ];
@@ -345,13 +358,48 @@ const features = [
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-primary-900">
         Discover Our Premium Tile Collections
       </h2>
+      
       <p class="text-lg-body text-neutral-600 max-w-4xl mx-auto pb-10">
         Discover premium tiles crafted to perfection, meeting every style and need. Whether you're designing a modern bathroom, a rustic kitchen, or a luxurious office space, The Tileart has you covered.
       </p>
+      <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-12 mb-8">
+        <div class="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow w-32 h-24 sm:w-36 sm:h-28 md:w-40 md:h-32">
+          <Image 
+            format='avif'
+            src={sunheart} 
+            alt="Sunnheart Partner Logo" 
+            class="max-h-full max-w-full object-contain"
+            width={500}
+            height={400}
+          />
+        </div>
+        <div class="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow w-32 h-24 sm:w-36 sm:h-28 md:w-40 md:h-32">
+          <Image 
+            format='avif'
+            src={creanza} 
+            alt="Creanza Partner Logo" 
+            class="max-h-full max-w-full object-contain"
+            width={500}
+            height={400}
+          />
+        </div>
+        <div class="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow w-32 h-24 sm:w-36 sm:h-28 md:w-40 md:h-32">
+          <Image 
+            format='avif'
+            src={seron} 
+            alt="Seron Partner Logo" 
+            class="max-h-full max-w-full object-contain"
+            width={500}
+            height={400}
+          />
+        </div>
+      </div>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-7">
       {tileCollections.map(collection => (
+        <a href={`${collection.link}`}>
+
         <div class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
           <div class="relative overflow-hidden">
             <Image 
@@ -368,6 +416,7 @@ const features = [
             <p class="text-body text-neutral-600">{collection.description}</p>
           </div>
         </div>
+        </a>
       ))}
     </div>
 
@@ -693,19 +742,35 @@ const features = [
         <!-- Original logos -->
         <div class="logo-slide">
           <div class="logo-item">
-            <Image width={150} height={150} format='avif' src={alfen} alt="Partner Brand 1" class="h-24 sm:h-32 object-contain" />
+            <Image width={150} height={150} format='avif' src={alfen} alt="alfen" class="h-24 sm:h-32 p-2 object-contain" />
           </div>
         </div>
         <div class="logo-slide">
           <div class="logo-item">
-            <Image width={150} height={150} format='avif' src={ampleline} alt="Partner Brand 2" class="h-24 sm:h-32 object-contain" />
+            <Image width={150} height={150} format='avif' src={ampleline} alt="ampleline" class="h-24 sm:h-32 p-2 object-contain" />
           </div>
         </div>
         <div class="logo-slide">
           <div class="logo-item">
-            <Image width={150} height={150} format="avif" src={sunheart} alt="Partner Brand 3" class="h-24 sm:h-32 object-contain" />
+            <Image width={150} height={150} format="avif" src={sunheart} alt="sunheart" class="h-24 sm:h-32 p-2 object-contain" />
           </div>
         </div>
+        <div class="logo-slide">
+          <div class="logo-item">
+            <Image width={150} height={150} format="avif" src={creanza} alt="creanza" class="h-24 sm:h-32 p-2 object-contain" />
+          </div>
+        </div>
+        <div class="logo-slide">
+          <div class="logo-item">
+            <Image width={150} height={150} format="avif" src={seron} alt="seron" class="h-24 sm:h-32 p-2 object-contain" />
+          </div>
+        </div>
+        <div class="logo-slide">
+          <div class="logo-item">
+            <Image width={150} height={150} format="avif" src={decor} alt="decor" class="h-24 sm:h-32 p-2 object-contain" />
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
